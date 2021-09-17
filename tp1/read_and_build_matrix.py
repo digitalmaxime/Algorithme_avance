@@ -1,4 +1,5 @@
-def Build_matrix(matrix, path):
+def Build_matrix(path):
+    matrix = []
     with open(path) as f:
         power_n = f.readline()
         data = f.read()
@@ -11,4 +12,4 @@ def Build_matrix(matrix, path):
                 for i in range(len(parsedLine)):
                         parsedLine[i] = int(parsedLine[i])
                 matrix.append(parsedLine)
-        return matrix
+    return matrix
