@@ -5,21 +5,21 @@ import numpy as np
 # ret = a - b
 # print (ret)
 
-A = np.array([  [1, 2, 3, 4, 5, 6, 7, 8], 
-                [1, 2, 3, 4, 5, 6, 7, 8], 
-                [1, 2, 3, 4, 5, 6, 7, 8], 
-                [1, 2, 3, 4, 5, 6, 7, 8],
-                [1, 2, 3, 4, 5, 6, 7, 8],
-                [1, 2, 3, 4, 5, 6, 7, 8],
-                [1, 2, 3, 4, 5, 6, 7, 8],
-                [1, 2, 3, 4, 5, 6, 7, 8]
-                ])
+# A = np.array([  [1, 2, 3, 4, 5, 6, 7, 8], 
+#                 [1, 2, 3, 4, 5, 6, 7, 8], 
+#                 [1, 2, 3, 4, 5, 6, 7, 8], 
+#                 [1, 2, 3, 4, 5, 6, 7, 8],
+#                 [1, 2, 3, 4, 5, 6, 7, 8],
+#                 [1, 2, 3, 4, 5, 6, 7, 8],
+#                 [1, 2, 3, 4, 5, 6, 7, 8],
+#                 [1, 2, 3, 4, 5, 6, 7, 8]
+#                 ])
 
 def GenerateMatrixOfZeros(n):
     C = [[0 for col in range(n)] for row in range(n)]
     return np.array(C)
 
-def Mult_Matrice(A, B):
+def MultiplyMatrice(A, B):
     nb_lines = len(A[0])
     C = GenerateMatrixOfZeros(nb_lines)
     for i in range(nb_lines):
@@ -91,13 +91,13 @@ def Strassen_threshold(A, B, threshold):
 
     return C
 
-print('*' * 40)
+# print('*' * 40)
 
-C = Mult_Matrice(A, A)
-print(np.array(C))
+# C = Mult_Matrice(A, A)
+# print(np.array(C))
 
-C = Strassen(A, A)
-print(np.array(C))
+# C = Strassen(A, A)
+# print(np.array(C))
 
-C = Strassen_threshold(A, A, 2)
-print(np.array(C))
+# C = Strassen_threshold(A, A, 2)
+# print(np.array(C))
