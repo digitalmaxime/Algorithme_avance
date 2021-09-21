@@ -1,4 +1,5 @@
 import numpy as np
+import time
 
 def GenerateMatrixOfZeros(n):
     C = [[0 for col in range(n)] for row in range(n)]
@@ -14,8 +15,9 @@ def MultiplyMatrice(A, B):
     return C
 
 def MultiplyMatriceWrapper(A, B):
-    execution_time = 12345
+    initial_time = time.perf_counter()
     Resulting_Matrix = MultiplyMatrice(A, B)
+    execution_time = (time.perf_counter() - initial_time)*1000
     return tuple((Resulting_Matrix, execution_time))
 
 def Strassen(A, B):
@@ -50,8 +52,9 @@ def Strassen(A, B):
     return C
 
 def StrassenWrapper(A, B):
-    execution_time = 12345
+    initial_time = time.perf_counter()
     Resulting_Matrix = Strassen(A, B)
+    execution_time = (time.perf_counter() - initial_time)*1000
     return tuple((Resulting_Matrix, execution_time))
 
 def StrassenThreshold(A, B, threshold):
@@ -86,6 +89,7 @@ def StrassenThreshold(A, B, threshold):
     return C
 
 def StrassenThresholdWrapper(A, B, threshold):
-    execution_time = 12345
+    initial_time = time.perf_counter()
     Resulting_Matrix = StrassenThreshold(A, B, threshold)
-    return tuple((Resulting_Matrix, execution_time))]
+    execution_time = (time.perf_counter() - initial_time)*1000
+    return tuple((Resulting_Matrix, execution_time))

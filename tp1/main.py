@@ -67,6 +67,6 @@ if __name__ == "__main__":
             
         if (should_print_time_execution):
             print("*" * 40)
-            print("it took {} seconds ...".format(resulting_matrix[Params.time]))
+            print("it took {} milliseconds ...".format(resulting_matrix[Params.time]))
 
             
