@@ -2,6 +2,7 @@
 
 import argparse
 import os
+import sys
 import numpy as np
 from enum import Enum
 
@@ -46,6 +47,7 @@ if __name__ == "__main__":
         print("path to matrix 2 doesnt exists..")
 
     if path1_exists and path2_exists:
+
         matrix_A = Build_matrix(path_to_matrix_1)
         matrix_B = Build_matrix(path_to_matrix_2)
         matrix_A = np.array(matrix_A)
@@ -53,20 +55,23 @@ if __name__ == "__main__":
         
         # switch case here
         if algo == 'conv':
-            resulting_matrix = MultiplyMatriceWrapper(matrix_A, matrix_B)
+            result = MultiplyMatriceWrapper(matrix_A, matrix_B)
         elif algo == 'strassen':
-            resulting_matrix = StrassenWrapper(matrix_A, matrix_B)
+            result = StrassenWrapper(matrix_A, matrix_B)
         else:
-            resulting_matrix = StrassenThresholdWrapper(matrix_A, matrix_B, 2) # TODO ici le seuil est hardcode
-        
+            result = StrassenThresholdWrapper(matrix_A, matrix_B, 2) # TODO ici le seuil est hardcode**
+
+        #prepare results file
+        with open('results.csv', 'a') as f:
+            f.writelines("{};{};\n".format(algo, result[Params.time]))
+
 
         # show output if user asked for it
         if (should_print_matrix):
             print("*" * 40)
-            print(resulting_matrix[Params.matrix])
+            print(result[Params.matrix])
             
         if (should_print_time_execution):
             print("*" * 40)
-            print("it took {} seconds ...".format(resulting_matrix[Params.time]))
+            print("it took {} seconds ...".format(result[Params.time]))
 
-            

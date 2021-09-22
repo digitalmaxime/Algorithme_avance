@@ -88,4 +88,4 @@ def StrassenThreshold(A, B, threshold):
 def StrassenThresholdWrapper(A, B, threshold):
     execution_time = 12345
     Resulting_Matrix = StrassenThreshold(A, B, threshold)
-    return tuple((Resulting_Matrix, execution_time))]
+    return tuple((Resulting_Matrix, execution_time))
