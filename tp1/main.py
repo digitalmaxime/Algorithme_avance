@@ -4,7 +4,6 @@ import argparse
 import os
 import sys
 import numpy as np
-from enum import Enum
 
 from algo1 import GenerateMatrixOfZeros
 from algo1 import MultiplyMatriceWrapper
@@ -48,11 +47,11 @@ if __name__ == "__main__":
 
     if path1_exists and path2_exists:
 
-        matrix_A = Build_matrix(path_to_matrix_1)
-        matrix_B = Build_matrix(path_to_matrix_2)
+        (matrix_A, power_n) = Build_matrix(path_to_matrix_1)
+        (matrix_B, power_n) = Build_matrix(path_to_matrix_2)
         matrix_A = np.array(matrix_A)
         matrix_B = np.array(matrix_B)
-        
+
         # switch case here
         if algo == 'conv':
             result = MultiplyMatriceWrapper(matrix_A, matrix_B)
@@ -60,10 +59,9 @@ if __name__ == "__main__":
             result = StrassenWrapper(matrix_A, matrix_B)
         else:
             result = StrassenThresholdWrapper(matrix_A, matrix_B, 2) # TODO ici le seuil est hardcode**
-
         #prepare results file
         with open('results.csv', 'a') as f:
-            f.writelines("{};{};\n".format(algo, result[Params.time]))
+            f.write("{};{};{};\n".format(algo, power_n, round(result[Params.time], 4)))
 
 
         # show output if user asked for it

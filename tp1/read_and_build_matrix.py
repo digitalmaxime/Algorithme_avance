@@ -1,7 +1,7 @@
 def Build_matrix(path):
     matrix = []
     with open(path) as f:
-        power_n = f.readline()
+        power_n = f.readline().strip()
         data = f.read()
         listOfLines = data.split('\n')
         for line in listOfLines:
@@ -12,4 +12,4 @@ def Build_matrix(path):
                 for i in range(len(parsedLine)):
                         parsedLine[i] = int(parsedLine[i])
                 matrix.append(parsedLine)
-    return matrix
+    return matrix, power_n
