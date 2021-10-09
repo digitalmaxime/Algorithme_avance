@@ -1,6 +1,10 @@
 import numpy as np
 import time
 
+"""
+source: Auguste Burlats, moodle
+"""
+
 def GenerateMatrixOfZeros(n):
     C = [[0 for col in range(n)] for row in range(n)]
     return np.array(C)

@@ -58,7 +58,7 @@ if __name__ == "__main__":
         elif algo == 'strassen':
             result = StrassenWrapper(matrix_A, matrix_B)
         else:
-            result = StrassenThresholdWrapper(matrix_A, matrix_B, 2) # TODO ici le seuil est hardcode**
+            result = StrassenThresholdWrapper(matrix_A, matrix_B, 16) # TODO ici le seuil est hardcode**
         #prepare results file
         with open('results.csv', 'a') as f:
             f.write("{};{};{};\n".format(algo, power_n, round(result[Params.time], 4)))
