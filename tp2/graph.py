@@ -79,8 +79,17 @@ class Graph:
             v = mostSaturatedVertices[0]
         return v
 
+    def tabou(self, graph): 
+        coloration = self.glouton(graph)
+        numberOfColorUsed = max(coloration.values()) + 1
+        #Color reduction : 
+        verticesWithMaxColor = list(coloration.keys())[coloration.values().index(numberOfColorUsed - 1)]
+        print(verticesWithMaxColor)
+        return coloration
+
+
 
 
 if __name__ == "__main__":
     inst = Graph(G)
-    print(inst.glouton(G))
+    print(inst.tabou(G))
