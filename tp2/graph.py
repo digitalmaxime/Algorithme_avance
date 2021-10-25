@@ -1,3 +1,5 @@
+import itertools
+
 G = { 
    "a" : ["b","c"],
    "b" : ["a", "d"],
@@ -8,7 +10,7 @@ G = {
 
 C = {
     "a": 0,
-    "b": 1,
+    "b": 0,
     "c": 1,
     "d": 0,
     "e": 1
@@ -83,13 +85,24 @@ class Graph:
         coloration = self.glouton(graph)
         numberOfColorUsed = max(coloration.values()) + 1
         #Color reduction : 
-        verticesWithMaxColor = list(coloration.keys())[coloration.values().index(numberOfColorUsed - 1)]
-        print(verticesWithMaxColor)
+        for vertice in coloration.keys(): 
+            if(coloration[vertice] == numberOfColorUsed - 1):
+                print(vertice)
         return coloration
+
+    def getNumberOfConflict(self, graph, coloration): 
+        nbOfConflict = 0
+        for vertice in graph.keys():
+            for neighbour in graph[vertice]: 
+                if(coloration[vertice] == coloration[neighbour]):
+                    nbOfConflict += 1
+        return nbOfConflict / 2
+
 
 
 
 
 if __name__ == "__main__":
     inst = Graph(G)
-    print(inst.tabou(G))
+    #print(inst.tabou(G))
+    print(inst.getNumberOfConflict(G,C))
