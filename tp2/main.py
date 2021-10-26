@@ -43,11 +43,11 @@ if __name__ == "__main__":
 
         # switch case here
         if algo == 'glouton':
-            result = glouton(graphInstance)
+            result = graphInstance.glouton(graphDict)
         elif algo == 'branch_bound':
-            result = branch_bound(graphInstance)
+            result = graphInstance.branch_bound(graphDict)
         else:
-            result = tabou(graphInstance)
+            result = graphInstance.tabou(graphDict)
         #prepare results file
         with open('results.csv', 'a') as f:
             f.write("{};{};{};\n".format(algo, nbVertices, round(result[Params.time], 4)))
