@@ -1,5 +1,3 @@
-import itertools
-
 G = { 
    "a" : ["b","c"],
    "b" : ["a", "d"],
@@ -102,8 +100,19 @@ class Helper:
     
     def getColorWithMinConflict(vertice, graph, coloration): 
         currentColor = coloration[vertice]
-        for i in range(currentColor):
+        newColoration = coloration
+        newColoration[vertice] = currentColor - 1
+        minNumberOfConflicts = Helper.getNumberOfConflict(graph, newColoration)
+        for i in range(currentColor - 1, 0, -1):
+            newColoration[vertice] = i
             print(i)
+            nbOfConflict = Helper.getNumberOfConflict(graph, newColoration)
+            if(nbOfConflict < minNumberOfConflicts):
+                minNumberOfConflicts = nbOfConflict
+                currentColor = i
+        return currentColor
+
+            
 
 
 
