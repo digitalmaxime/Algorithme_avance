@@ -10,7 +10,7 @@ G = {
 
 C = {
     "a": 0,
-    "b": 0,
+    "b": 1,
     "c": 1,
     "d": 0,
     "e": 1
@@ -87,6 +87,7 @@ class Graph:
         #Color reduction : 
         for vertice in coloration.keys(): 
             if(coloration[vertice] == numberOfColorUsed - 1):
+                #Changer de couleur pour minimiser CD
                 print(vertice)
         return coloration
 
@@ -97,6 +98,8 @@ class Graph:
                 if(coloration[vertice] == coloration[neighbour]):
                     nbOfConflict += 1
         return nbOfConflict / 2
+
+    def branch_bound(self, graph): 
 
 
 
