@@ -1,4 +1,6 @@
 import copy
+from read_file import Build_graph
+
 from graph import Helper
 from glutton import glutton
 
@@ -38,9 +40,7 @@ def checkIfColorIsConflicting(color, vertice, graph, coloration):
 def explore_node(graph, coloration):
     node_list = []
     vertice = Helper.findMaxSaturatedVertice(graph, coloration)
-    print('max saturated: ', vertice)
     for i in range(len(coloration) + 1):
-        print(i)
         if not checkIfColorIsConflicting(i, vertice, graph, coloration):
             colorationCopy = copy.deepcopy(coloration)
             colorationCopy[vertice] = i
@@ -56,23 +56,16 @@ def findNbOfUniqueColorsInSolution(solution):
     return len(listOfColors)
 
 def checkIfAllVerticesInSolution(solution, graph) :
-    # listOfAllVerticesInSolution = []
-    # for vertice in solution:
-    #     listOfAllVerticesInSolution.append(vertice)
-    print('check if all vertices in sol')
-    print('sol: ', solution)
-    print('graph: ', graph)
     for vertice in graph:
         if not vertice in solution:
-            print('false')
             return False
-    print('true')
     return True
 
 def branch_and_bound(G) :
     currentBestSolution = glutton(G)
     UB = findNbOfUniqueColorsInSolution(currentBestSolution)
     print('firt solution : ', currentBestSolution)
+    print('firt UB : ', UB)
     node_pile = []
     coloration = {}
     vertice = Helper.getVerticeWithMaxDegree(G)
@@ -80,8 +73,6 @@ def branch_and_bound(G) :
     node_pile.append(coloration)
     while node_pile:
         coloration = node_pile.pop()
-        print('findNbOfUniqueColorsInSolution', findNbOfUniqueColorsInSolution(coloration))
-        print('UB', UB)
         if checkIfAllVerticesInSolution(coloration, G):
             nbOfUniqueColorsFound = findNbOfUniqueColorsInSolution(coloration)
             if nbOfUniqueColorsFound < UB:
@@ -91,10 +82,12 @@ def branch_and_bound(G) :
             node_list = explore_node(G, coloration)
             for new_coloration in node_list:
                 node_pile.append(new_coloration)
+    print('last UB: ', findNbOfUniqueColorsInSolution(currentBestSolution))
     return currentBestSolution
 
 if __name__ == "__main__":
     print("*" * 40)
-    print(branch_and_bound(G))
+    graph = Build_graph("./instances/ex30_0")
+    print(branch_and_bound(graph))
     # explore_node(G, C)
     

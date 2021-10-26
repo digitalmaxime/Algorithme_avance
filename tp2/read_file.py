@@ -20,5 +20,5 @@ def Build_graph(path):
 
 if __name__ == "__main__":
     #For testing, ex5_0 is used
-    graph = Build_graph("/home/kadesc/Bureau/INF8775/Algorithme_avance/tp2/instances/ex5_0")
+    graph = Build_graph("./instances/ex5_0")
     print(graph)
