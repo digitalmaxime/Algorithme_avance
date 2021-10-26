@@ -20,8 +20,8 @@ C = {
 
 
 class Helper: 
-    def __init__(self):
-        pass
+    # def __init__(self):
+    #     pass
 
     def getVerticeWithMaxDegree(graph):
         maxVertice = list(graph.keys())[0]
@@ -114,8 +114,9 @@ class Helper:
 
 
 if __name__ == "__main__":
-    inst = Graph(G)
-    instWithNumber = Graph(G1)
+    pass
+    # inst = Graph()
+    # instWithNumber = Graph(G1)
     #print(inst.getColorWithMinConflict('b', G, C))
     #print(instWithNumber.glutton(G1))
     #print(inst.tabou(G))
