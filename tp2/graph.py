@@ -8,9 +8,11 @@ G = {
    "e" : ["d"]
 }
 
+G1 = {0: [3], 1: [2, 3, 4], 2: [1, 3], 3: [0, 1, 2], 4: [1]}
+
 C = {
     "a": 0,
-    "b": 1,
+    "b": 2,
     "c": 1,
     "d": 0,
     "e": 1
@@ -87,8 +89,8 @@ class Graph:
         #Color reduction : 
         for vertice in coloration.keys(): 
             if(coloration[vertice] == numberOfColorUsed - 1):
-                #Changer de couleur pour minimiser CD
-                print(vertice)
+                coloration[vertice] = self.getColorWithMinConflict(vertice, graph, coloration)
+        #TODO: Faire la recherche tabou ici
         return coloration
 
     def getNumberOfConflict(self, graph, coloration): 
@@ -98,8 +100,15 @@ class Graph:
                 if(coloration[vertice] == coloration[neighbour]):
                     nbOfConflict += 1
         return nbOfConflict / 2
+    
+    def getColorWithMinConflict(self, vertice, graph, coloration): 
+        currentColor = coloration[vertice]
+        for i in range(currentColor):
+            print(i)
 
-    def branch_bound(self, graph): 
+
+
+    #def branch_bound(self, graph): TODO
 
 
 
@@ -107,5 +116,8 @@ class Graph:
 
 if __name__ == "__main__":
     inst = Graph(G)
+    instWithNumber = Graph(G1)
+    #print(inst.getColorWithMinConflict('b', G, C))
+    #print(instWithNumber.glouton(G1))
     #print(inst.tabou(G))
-    print(inst.getNumberOfConflict(G,C))
+    #print(inst.getNumberOfConflict(G,C))
