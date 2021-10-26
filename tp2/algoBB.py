@@ -1,4 +1,6 @@
 from graph import Helper
+from graph import Helper
+from glutton import glutton
 
 G = { 
 #    "a" : ["b","c"],
@@ -16,7 +18,7 @@ C = {
     "e": 1
 }
 
-def explore_node(coloration, G):
+# def explore_node(coloration, G):
 
 
 def findNbOfUniqueColorsInSolution(solution):
@@ -35,12 +37,12 @@ def checkIfAllVerticesInSolution(solution, G) :
             return False
     return True
 
-def branch_and_bound(G, helper) :
-    currentBestSolution = graph.glutton(G)
+def branch_and_bound(G) :
+    currentBestSolution = glutton(G)
     UB = findNbOfUniqueColorsInSolution(currentBestSolution)
     node_pile = []
     coloration = {}
-    vertice = helper.getVerticeWithMaxDegree(G)
+    vertice = Helper.getVerticeWithMaxDegree(G)
     coloration[vertice] = 0
     node_pile.append(coloration)
     while node_pile:
@@ -50,12 +52,11 @@ def branch_and_bound(G, helper) :
             if nbOfUniqueColorsFound < UB:
                 UB = nbOfUniqueColorsFound
                 currentBestSolution = coloration
-        else:
-            node_list = explore_node(coloration)
-            for new_coloration in node_list:
-                node_pile.append(new_coloration)
+        # else:
+            # node_list = explore_node(coloration)
+            # for new_coloration in node_list:
+            #     node_pile.append(new_coloration)
     return coloration
 
 if __name__ == "__main__":
-    helper = Graph(G)
-    branch_and_bound(G, helper)
+    print(branch_and_bound(G))
