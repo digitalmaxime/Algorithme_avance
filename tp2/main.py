@@ -42,7 +42,6 @@ if __name__ == "__main__":
     if path_exists:
 
         (graphDict, nbVertices) = Build_graph(path_to_matrix)
-        # graphInstance = Graph(graphDict)
 
         # switch case here
         if algo == 'glutton':
