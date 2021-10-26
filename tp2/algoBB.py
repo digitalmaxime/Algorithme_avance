@@ -1,11 +1,10 @@
 from graph import Helper
-from graph import Helper
 from glutton import glutton
 
 G = { 
-#    "a" : ["b","c"],
-#    "b" : ["a", "d"],
-#    "c" : ["a", "d"],
+   "a" : ["b","c"],
+   "b" : ["a", "d"],
+   "c" : ["a", "d"],
    "d" : ["b", "c", "e"],
    "e" : ["d"]
 }
