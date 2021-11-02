@@ -20,14 +20,14 @@ class Params:
 if __name__ == "__main__":
         
     local_parser = argparse.ArgumentParser()
-    local_parser.add_argument("-e1",  "--path", type=str, default="./test_file.txt", help="path to matrix")
-    local_parser.add_argument("-a", "--algo", type=str, default="glutton", help="specify which type of algorithm to use : glutton, branch_bound or tabou")
+    local_parser.add_argument("-e",  "--path", type=str, default="./test_file.txt", help="path to testset")
+    local_parser.add_argument("-a", "--algo", type=str, default="glouton", help="specify which type of algorithm to use : glouton, branch_bound or tabou")
     local_parser.add_argument("-p",   "--print_solution", default=False, action='store_true', help="Boolean that is set to true will print graph coloration")
     local_parser.add_argument("-t",   "--print_execution_time", default=False, action='store_true', help="Boolean that is set to true will print execution time")
     args = local_parser.parse_args()
 
-    path_to_matrix = args.path
-    path_exists = os.path.exists(path_to_matrix)
+    path_to_testset = args.path
+    path_exists = os.path.exists(path_to_testset)
     algo = args.algo
 
     should_print_solution = args.print_solution
@@ -39,11 +39,11 @@ if __name__ == "__main__":
         algo = 'glutton'
 
     if not path_exists:
-        print("path to matrix doesnt exists..")
+        print("path to testset doesnt exists..")
 
     if path_exists:
 
-        (graphDict, nbVertices) = Build_graph(path_to_matrix)
+        (graphDict, nbVertices) = Build_graph(path_to_testset)
 
         # switch case here
         initial_time = time.perf_counter()
@@ -57,7 +57,7 @@ if __name__ == "__main__":
         result = tuple((coloration, execution_time))
             
         #prepare results file
-        with open('results.csv', 'a') as f:
+        with open('results_{}.csv'.format(algo), 'a') as f:
             f.write("{};{};{};\n".format(algo, nbVertices, round(result[Params.time], 4)))
 
         # show output if user asked for it

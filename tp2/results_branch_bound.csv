@@ -1,0 +1,16 @@
+branch_bound; nb_vertices; time
+branch_bound;10;0.5114;
+branch_bound;10;0.323;
+branch_bound;10;0.7317;
+branch_bound;10;1.4529;
+branch_bound;10;0.4212;
+branch_bound;30;8336.0284;
+branch_bound;30;296.054;
+branch_bound;30;230.2729;
+branch_bound;30;95.4747;
+branch_bound;30;510.574;
+branch_bound;5;2.6111;
+branch_bound;5;0.2341;
+branch_bound;5;0.0889;
+branch_bound;5;0.1907;
+branch_bound;5;0.2016;
