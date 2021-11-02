@@ -16,7 +16,7 @@ def Build_graph(path):
                     if(int(parsedLine[i]) == 1):
                         graph[lineNumber].append(i)
             lineNumber += 1            
-    return graph
+    return (graph, numberOfVertices)
 
 if __name__ == "__main__":
     #For testing, ex5_0 is used

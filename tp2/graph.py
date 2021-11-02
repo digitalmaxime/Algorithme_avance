@@ -1,24 +1,4 @@
-G = { 
-   "a" : ["b","c"],
-   "b" : ["a", "d"],
-   "c" : ["a", "d"],
-   "d" : ["b", "c", "e"],
-   "e" : ["d"]
-}
-
-G1 = {0: [3], 1: [2, 3, 4], 2: [1, 3], 3: [0, 1, 2], 4: [1]}
-
-C = {
-    "a": 0,
-    "b": 2,
-    "c": 1,
-    "d": 0,
-    "e": 1
-}
-
-
 class Helper: 
-
     def getVerticeWithMaxDegree(graph):
         maxVertice = list(graph.keys())[0]
         for vertice in graph: 
@@ -57,12 +37,9 @@ class Helper:
             v = mostSaturatedVertices[0]
         return v
 
-
-
-if __name__ == "__main__":
-    pass
-    # inst = Graph()
-    # instWithNumber = Graph(G1)
-    #print(instWithNumber.glutton(G1))
-    #print(inst.tabou(G))
-    #print(inst.getNumberOfConflict(G,C))
+    def findNbOfUniqueColorsInSolution(solution):
+        listOfColors = []
+        for colorNumber in solution.values(): 
+            if colorNumber not in listOfColors:
+                listOfColors.append(colorNumber)
+        return len(listOfColors)

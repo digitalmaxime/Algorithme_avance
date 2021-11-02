@@ -5,10 +5,10 @@ import os
 import sys
 import numpy as np
 
-# from graph import Graph
+from graph import Helper
 from glutton import glutton
 from tabou import tabou
-from algoBB import branch_and_bound
+from branch_and_bound import branch_bound
 from read_file import Build_graph
 
 class Params:
@@ -32,7 +32,7 @@ if __name__ == "__main__":
     should_print_time_execution = args.print_execution_time
     
     # Check inputed parameters
-    if algo not in ['glutton', 'branch_bound', 'tabou']:
+    if algo not in ['glouton', 'branch_bound', 'tabou']:
         print('type of algorithm {} is invalid'.format(algo))
         algo = 'glutton'
 
@@ -44,21 +44,26 @@ if __name__ == "__main__":
         (graphDict, nbVertices) = Build_graph(path_to_matrix)
 
         # switch case here
-        if algo == 'glutton':
+        if algo == 'glouton':
             result = glutton(graphDict)
         elif algo == 'branch_bound':
             result = branch_bound(graphDict)
         else:
             result = tabou(graphDict)
+            
         #prepare results file
         with open('results.csv', 'a') as f:
             f.write("{};{};{};\n".format(algo, nbVertices, round(result[Params.time], 4)))
 
-
         # show output if user asked for it
         if (should_print_solution):
             print("*" * 40)
-            #TODO
+            print(Helper.findNbOfUniqueColorsInSolution(result))
+            sortedResult = dict(sorted(result.items()))
+            for val in sortedResult.values() :
+                print(val, end=" ");
+            print()
+            print("*" * 40)
             
         if (should_print_time_execution):
             print("*" * 40)
