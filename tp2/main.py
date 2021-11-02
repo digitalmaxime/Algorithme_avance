@@ -4,6 +4,8 @@ import argparse
 import os
 import sys
 import numpy as np
+import time
+
 
 from graph import Helper
 from glutton import glutton
@@ -12,7 +14,7 @@ from branch_and_bound import branch_bound
 from read_file import Build_graph
 
 class Params:
-    matrix = 0
+    coloration = 0
     time = 1
 
 if __name__ == "__main__":
@@ -44,12 +46,15 @@ if __name__ == "__main__":
         (graphDict, nbVertices) = Build_graph(path_to_matrix)
 
         # switch case here
+        initial_time = time.perf_counter()
         if algo == 'glouton':
-            result = glutton(graphDict)
+            coloration = glutton(graphDict)
         elif algo == 'branch_bound':
-            result = branch_bound(graphDict)
+            coloration = branch_bound(graphDict)
         else:
-            result = tabou(graphDict)
+            coloration = tabou(graphDict)
+        execution_time = (time.perf_counter() - initial_time)*1000
+        result = tuple((coloration, execution_time))
             
         #prepare results file
         with open('results.csv', 'a') as f:
@@ -58,8 +63,8 @@ if __name__ == "__main__":
         # show output if user asked for it
         if (should_print_solution):
             print("*" * 40)
-            print(Helper.findNbOfUniqueColorsInSolution(result))
-            sortedResult = dict(sorted(result.items()))
+            print(Helper.findNbOfUniqueColorsInSolution(result[Params.coloration]))
+            sortedResult = dict(sorted(result[Params.coloration].items()))
             for val in sortedResult.values() :
                 print(val, end=" ");
             print()
