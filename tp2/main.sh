@@ -15,5 +15,11 @@ do
     echo 'path :  ./'$folder'/'$testset
     ./tp.sh -a 'branch_bound' -e ./$folder/$testset -t
 done
+echo "tabou; nb_vertices; time" > ./results_tabou.csv
+for testset in  $testsets     
+do   
+    echo 'path :  ./'$folder'/'$testset
+    ./tp.sh -a 'tabou' -e ./$folder/$testset -t
+done
 
 echo 'tout fini :)'

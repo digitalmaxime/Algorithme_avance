@@ -3,7 +3,6 @@
 import argparse
 import os
 import sys
-import numpy as np
 import time
 
 
@@ -66,7 +65,7 @@ if __name__ == "__main__":
             print(Helper.findNbOfUniqueColorsInSolution(result[Params.coloration]))
             sortedResult = dict(sorted(result[Params.coloration].items()))
             for val in sortedResult.values() :
-                print(val, end=" ");
+                print(val, end=" ")
             print()
             print("*" * 40)
             
