@@ -16,3 +16,5 @@ branch_bound;5;0.0688;
 branch_bound;5;0.0776;
 branch_bound;30;81.4814;
 branch_bound;10;0.4934;
+branch_bound;10;0.435;
+branch_bound;30;1823.3851;
