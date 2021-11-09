@@ -11,6 +11,8 @@ G = {
    "e" : ["d"]
 }
 
+G10_3 = {0: [1,3,5,9], 1:[0,5,6,8], 2:[4,5,6,8], 3:[0,6,9], 4:[2,5,7,8], 5:[0,1,2,4,9], 6:[1,2,3,9], 7:[4,9], 8:[1,2,4], 9:[0,3,5,6,7]}
+
 G1 = {0: [3], 1: [2, 3, 4], 2: [1, 3], 3: [0, 1, 2], 4: [1]}
 
 C = {
@@ -23,7 +25,8 @@ C = {
 
 def tabou(graph): 
     coloration = glutton(graph)
-    #print('Result glouton : ',coloration)
+    print('Result glouton : ')
+    printOrderedDict(coloration)
     newColorationWithoutConflict = coloration
     lastColoration = {}
 
@@ -31,10 +34,13 @@ def tabou(graph):
     while (lastColoration != newColorationWithoutConflict): 
         lastColoration = copy.deepcopy(newColorationWithoutConflict)
         newColorationWithConflict = colorReduction(graph, copy.deepcopy(newColorationWithoutConflict))
-        #print('new coloration with conflict :', newColorationWithConflict)
+        print('new coloration with conflict :')
+        printOrderedDict(newColorationWithConflict)
         resultTabou = tabouSearch(graph, newColorationWithConflict)
+        print('result tabou :')
+        printOrderedDict(resultTabou)
         numberOfConflictTabou = getNumberOfConflict(graph, resultTabou)
-        #print('conflict : ', numberOfConflictTabou)
+        print('conflict : ', numberOfConflictTabou)
         if (numberOfConflictTabou > 0): 
             newColorationWithoutConflict = lastColoration
         else: 
@@ -48,7 +54,7 @@ def tabouSearch(graph, coloration):
     nbOfIterations = 1
     nbConflictBest = getNumberOfConflict(graph, bestColoration)
 
-    while (nbConflictBest > 0 | nbOfIterations < 10): #TODO: Check if is the good number of iterations (analyse)
+    while (nbConflictBest > 0 | nbOfIterations < 50): #TODO: Check if is the good number of iterations (analyse)
         for vertice in currentColoration.keys():
             initialColor = currentColoration[vertice]
             currentColoration = getBestNeighbour(graph, vertice, currentColoration, tabouList) #Génération voisins et choix
@@ -118,5 +124,18 @@ def getColorWithMinConflict(vertice, graph, coloration):
             currentColor = i
     return currentColor
 
+def printOrderedDict(result):
+    sortedResult = dict(sorted(result.items()))
+    for val in sortedResult.values() :
+        print(val, end=" ")
+    print()
+    print("*" * 40)
+
 if __name__ == "__main__":
-    print('Result tabou final: ', tabou(G1))
+    result = tabou(G10_3)
+    printOrderedDict(result)
+    #sortedResult = dict(sorted(result.items()))
+    #for val in sortedResult.values() :
+        #print(val, end=" ")
+    #print()
+    #print("*" * 40)
