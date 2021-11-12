@@ -19,8 +19,6 @@ C = {5: 0, 9: 1, 0: 2, 1: 1, 6: 0, 3: 2, 2: 1, 4: 2, 8: 0, 7: 0}
 
 def tabou(graph): 
     coloration = glutton(graph)
-    #print('Result glouton : ')
-    #printOrderedDict(coloration)
     newColorationWithoutConflict = coloration
     lastColoration = {}
 
@@ -28,13 +26,9 @@ def tabou(graph):
     while (lastColoration != newColorationWithoutConflict): 
         lastColoration = copy.deepcopy(newColorationWithoutConflict)
         newColorationWithConflict = colorReduction(graph, copy.deepcopy(newColorationWithoutConflict))
-        #print('new coloration with conflict :')
-        #printOrderedDict(newColorationWithConflict)
         resultTabou = tabouSearch(graph, copy.deepcopy(newColorationWithConflict))
-        #print('result tabou :')
-        #printOrderedDict(resultTabou)
         numberOfConflictTabou = getNumberOfConflict(graph, copy.deepcopy(resultTabou))
-        #print('conflict : ', numberOfConflictTabou)
+
         if (numberOfConflictTabou > 0): 
             newColorationWithoutConflict = lastColoration
         else: 
@@ -84,7 +78,7 @@ def tabouSearch(graph, coloration):
         #print(tabouList)
 
         nbOfIterations += 1
-        #print('nb iteration: ', nbOfIterations)
+
     return bestColoration
 
 def getBestNeighbour(graph, vertice, coloration, tabouList):
@@ -95,8 +89,10 @@ def getBestNeighbour(graph, vertice, coloration, tabouList):
             colorsInTabouList.append(couple[1])
     minNumberOfConflicts = float('inf')
     newColoration = copy.deepcopy(coloration)
+    #print('colors in tabou list for vertice :', vertice)
+    #print(colorsInTabouList)
 
-    for i in range(numberOfColorsAvailable - 1, 0, -1):
+    for i in range(numberOfColorsAvailable - 1, -1, -1):
         if(i != coloration[vertice] and i not in colorsInTabouList):
             newColoration[vertice] = i
             nbOfConflict = getNumberOfConflict(graph, copy.deepcopy(newColoration))
@@ -106,15 +102,17 @@ def getBestNeighbour(graph, vertice, coloration, tabouList):
     return newColoration
 
 
+#Worst case : Theta(V⁴)
 def colorReduction(graph, coloration): 
     colorationReduced = copy.deepcopy(coloration)
     numberOfColorUsed = max(coloration.values()) + 1
-    #print('Nb color used: ', numberOfColorUsed)
+
     for vertice in coloration.keys(): 
         if(coloration[vertice] == numberOfColorUsed - 1):
             colorationReduced[vertice] = getColorWithMinConflict(vertice, graph, copy.deepcopy(coloration))
     return colorationReduced
 
+#Worst case : Theta(V²)
 def getNumberOfConflict(graph, coloration): 
     nbOfConflict = 0
     for vertice in graph.keys():
@@ -122,7 +120,8 @@ def getNumberOfConflict(graph, coloration):
             if(coloration[vertice] == coloration[neighbour]):
                 nbOfConflict += 1
     return nbOfConflict / 2
-    
+
+#Theta((K-1)*(V²))  
 def getColorWithMinConflict(vertice, graph, coloration): 
     currentColor = coloration[vertice]
     newColoration = copy.deepcopy(coloration)
@@ -144,13 +143,14 @@ def printOrderedDict(result):
     print("*" * 40)
 
 if __name__ == "__main__":
-    colorationGlutton = glutton(G10_3)
-    print('Result glouton : ')
-    printOrderedDict(colorationGlutton)
-
-    bestCol = tabouSearch(G10_3, C)
-    print('FINAL')
-    printOrderedDict(bestCol)
+    #colorationGlutton = glutton(G10_3)
+    #print('Result glouton : ')
+    #printOrderedDict(colorationGlutton)
+    result = tabou(G10_3)
+    printOrderedDict(result)
+    #bestCol = tabouSearch(G10_3, C)
+    #print('FINAL')
+    #printOrderedDict(bestCol)
     #print('new coloration with conflict :')
     #printOrderedDict(C)
     #getBestNeighbour(G10_3, 2, C, [])
