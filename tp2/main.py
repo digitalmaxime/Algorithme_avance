@@ -61,7 +61,6 @@ if __name__ == "__main__":
 
         # show output if user asked for it
         if (should_print_solution):
-            print("*" * 40)
             print(Helper.findNbOfUniqueColorsInSolution(result[Params.coloration]))
             sortedResult = dict(sorted(result[Params.coloration].items()))
             for val in sortedResult.values() :
@@ -69,6 +68,5 @@ if __name__ == "__main__":
             print()
             
         if (should_print_time_execution):
-            print("*" * 40)
             print(result[Params.time])
 

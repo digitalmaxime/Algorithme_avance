@@ -46,7 +46,6 @@ def branch_bound(G) :
             if nbOfUniqueColorsFound < UB: # si tous les sommets sont dans la coloration, on verifie si le nb de couleurs utilise est meilleur que UB
                 UB = nbOfUniqueColorsFound
                 currentBestSolution = coloration
-                print('b_and_b found a new current Best solution, nb color used: ', Helper.findNbOfUniqueColorsInSolution(currentBestSolution))
         
         elif Helper.findNbOfUniqueColorsInSolution(coloration) < UB:
             node_list = explore_node(G, coloration)
