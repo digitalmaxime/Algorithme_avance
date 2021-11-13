@@ -1,5 +1,10 @@
+# from convert_to_instances import convert_instance
+
 def Build_graph(path):
+    # instance_path = './instances/' + path
+    # convert_instance(path, instance_path)
     graph = {}
+    # with open(instance_path) as f:
     with open(path) as f:
         numberOfVertices = f.readline().strip()
         for vertice in range(int(numberOfVertices)):

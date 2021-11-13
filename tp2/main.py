@@ -19,7 +19,7 @@ class Params:
 if __name__ == "__main__":
         
     local_parser = argparse.ArgumentParser()
-    local_parser.add_argument("-e",  "--path", type=str, default="./test_file.txt", help="path to testset")
+    local_parser.add_argument("-e",  "--path", type=str, help="path to testset")
     local_parser.add_argument("-a", "--algo", type=str, default="glouton", help="specify which type of algorithm to use : glouton, branch_bound or tabou")
     local_parser.add_argument("-p",   "--print_solution", default=False, action='store_true', help="Boolean that is set to true will print graph coloration")
     local_parser.add_argument("-t",   "--print_execution_time", default=False, action='store_true', help="Boolean that is set to true will print execution time")
@@ -67,7 +67,6 @@ if __name__ == "__main__":
             for val in sortedResult.values() :
                 print(val, end=" ")
             print()
-            print("*" * 40)
             
         if (should_print_time_execution):
             print("*" * 40)

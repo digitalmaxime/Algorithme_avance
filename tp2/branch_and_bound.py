@@ -10,6 +10,7 @@ def isColorIsConflicting(color, vertice, graph, coloration):
     return False
 
 
+
 def explore_node(graph, coloration):
     node_list = []
     vertice = Helper.findMaxSaturatedVertice(graph, coloration)
