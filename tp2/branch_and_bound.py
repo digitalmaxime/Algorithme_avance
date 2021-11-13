@@ -38,7 +38,7 @@ def branch_bound(G) :
     coloration[vertice] = 0
     node_pile.append(coloration) # pile LIFO pour fouille en profondeur
     while node_pile:
-        coloration = node_pile.pop() # disons {noeudA : couleur0}, 
+        coloration = node_pile.pop()
 
         if checkIfAllVerticesInSolution(coloration, G):
             nbOfUniqueColorsFound = Helper.findNbOfUniqueColorsInSolution(coloration)
@@ -47,9 +47,9 @@ def branch_bound(G) :
                 currentBestSolution = coloration
                 print('b_and_b found a new current Best solution, nb color used: ', Helper.findNbOfUniqueColorsInSolution(currentBestSolution))
         
-        elif Helper.findNbOfUniqueColorsInSolution(coloration) < UB: # si {A:0} ne comprend pas tous les sommets, ..vrai
-            node_list = explore_node(G, coloration) # explore genere {A:0, B:1}
+        elif Helper.findNbOfUniqueColorsInSolution(coloration) < UB:
+            node_list = explore_node(G, coloration)
             for new_coloration in node_list:
-                node_pile.append(new_coloration) # ajout de {A:0, B:1} sur la pile
+                node_pile.append(new_coloration) 
 
     return currentBestSolution
