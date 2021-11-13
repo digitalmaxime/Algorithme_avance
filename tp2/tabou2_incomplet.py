@@ -1,10 +1,7 @@
 from glutton import glutton
-from branch_and_bound import branch_bound
 from graph import Helper
 from random import randrange
 import copy
-
-from read_file import Build_graph
 
 G = { 
    "a" : ["b","c"],
@@ -20,30 +17,59 @@ G1 = {0: [3], 1: [2, 3, 4], 2: [1, 3], 3: [0, 1, 2], 4: [1]}
 
 C = {5: 0, 9: 1, 0: 2, 1: 1, 6: 0, 3: 2, 2: 1, 4: 2, 8: 0, 7: 0}
 
-def tabou(graph): 
+def colorReduction(graph, coloration): 
+    colorationReduced = copy.deepcopy(coloration)
+    maxColorUsed = max(coloration.values())
+    #print('Nb color used: ', numberOfColorUsed)
+    for vertice in coloration.keys(): 
+        if(coloration[vertice] == maxColorUsed):
+            colorationReduced[vertice] = getColorWithMinConflict(vertice, graph, copy.deepcopy(coloration))
+    return colorationReduced
+
+def getColorWithMinConflict(vertice, graph, coloration): 
+    currentColor = coloration[vertice]
+    newColoration = copy.deepcopy(coloration)
+    minNumberOfConflicts = float('inf')
+
+    for i in range(currentColor - 1, -1, -1): # TODO: ici jai change, c'etait : range(currentColor - 1, 0, -1):
+        newColoration[vertice] = i
+        nbOfConflict = getNumberOfConflict(graph, copy.deepcopy(newColoration))
+        if(nbOfConflict < minNumberOfConflicts):
+            minNumberOfConflicts = nbOfConflict
+            currentColor = i
+    return currentColor
+
+def getNumberOfConflict(graph, coloration):
+    nbOfConflict = 0
+    for vertice in graph.keys():
+        for neighbour in graph[vertice]: 
+            if(coloration[vertice] == coloration[neighbour]):
+                nbOfConflict += 1
+    return nbOfConflict / 2
+
+def tabou2(graph): 
     coloration = glutton(graph)
     #print('Result glouton : ')
     #printOrderedDict(coloration)
     newColorationWithoutConflict = coloration
     lastColoration = {}
-
-    #Loop between colorReduction and tabouSearch until tabouSearch fails
-    while (lastColoration != newColorationWithoutConflict): 
-        lastColoration = copy.deepcopy(newColorationWithoutConflict)
-        newColorationWithConflict = colorReduction(graph, copy.deepcopy(newColorationWithoutConflict))
-        #print('new coloration with conflict :')
-        #printOrderedDict(newColorationWithConflict)
-        resultTabou = tabouSearch(graph, copy.deepcopy(newColorationWithConflict))
-        #print('result tabou :')
-        #printOrderedDict(resultTabou)
-        numberOfConflictTabou = getNumberOfConflict(graph, copy.deepcopy(resultTabou))
-        #print('conflict : ', numberOfConflictTabou)
-        if (numberOfConflictTabou > 0): 
-            newColorationWithoutConflict = lastColoration
-        else: 
-            newColorationWithoutConflict = resultTabou
-    return newColorationWithoutConflict
-
+    
+    nbOfUniqueColors = Helper.findNbOfUniqueColorsInSolution(coloration)
+    candidateColorationPossiblyConflicted = colorReduction(graph, coloration)
+    
+    #tabou search
+    bestColoration = []
+    tabouList = []
+    currentColoration = []
+    
+    #generation de voisins
+    
+    
+    
+    newColorationWithoutConflict = coloration
+    lastColoration = {}
+    
+    
 def tabouSearch(graph, coloration): 
     bestColoration = coloration
     currentColoration = coloration
@@ -99,7 +125,7 @@ def getBestNeighbour(graph, vertice, coloration, tabouList):
     minNumberOfConflicts = float('inf')
     newColoration = copy.deepcopy(coloration)
 
-    for i in range(numberOfColorsAvailable - 1, 0, -1):
+    for i in range(numberOfColorsAvailable - 1, -1, -1): # TODO: ici change 0 a -1
         if(i != coloration[vertice] and i not in colorsInTabouList):
             newColoration[vertice] = i
             nbOfConflict = getNumberOfConflict(graph, copy.deepcopy(newColoration))
@@ -107,72 +133,3 @@ def getBestNeighbour(graph, vertice, coloration, tabouList):
                 minNumberOfConflicts = nbOfConflict
     #printOrderedDict(newColoration)
     return newColoration
-
-
-def colorReduction(graph, coloration): 
-    colorationReduced = copy.deepcopy(coloration)
-    # numberOfColorUsed = max(coloration.values()) + 1 # TODO: attention, jsuis pas sur de ca
-    numberOfColorUsed = Helper.findNbOfUniqueColorsInSolution(coloration)
-    #print('Nb color used: ', numberOfColorUsed)
-    for vertice in coloration.keys(): 
-        if(coloration[vertice] == numberOfColorUsed - 1):
-            colorationReduced[vertice] = getColorWithMinConflict(vertice, graph, copy.deepcopy(coloration))
-    return colorationReduced
-
-def getNumberOfConflict(graph, coloration):
-    nbOfConflict = 0
-    for vertice in graph.keys():
-        for neighbour in graph[vertice]: 
-            if(coloration[vertice] == coloration[neighbour]):
-                nbOfConflict += 1
-    return nbOfConflict / 2
-    
-def getColorWithMinConflict(vertice, graph, coloration): 
-    currentColor = coloration[vertice]
-    newColoration = copy.deepcopy(coloration)
-    minNumberOfConflicts = float('inf')
-
-    for i in range(currentColor - 1, 0, -1):
-        newColoration[vertice] = i
-        nbOfConflict = getNumberOfConflict(graph, copy.deepcopy(newColoration))
-        if(nbOfConflict < minNumberOfConflicts):
-            minNumberOfConflicts = nbOfConflict
-            currentColor = i
-    return currentColor
-
-def printOrderedDict(result):
-    sortedResult = dict(sorted(result.items()))
-    for val in sortedResult.values() :
-        print(val, end=" ")
-    print()
-    print('nombre de couleur : ', Helper.findNbOfUniqueColorsInSolution(result))
-    print("*" * 40)
-
-if __name__ == "__main__":
-    (graph, numberOfVertices) = Build_graph("./instances/ex50_0")
-    
-    colorationGlutton = glutton(graph)
-    print('Glouton : ')
-    printOrderedDict(colorationGlutton)
-
-    # bestCol = tabouSearch(G10_3, C)
-    # print('FINAL')
-    # printOrderedDict(bestCol)
-    #print('new coloration with conflict :')
-    #printOrderedDict(C)
-    #getBestNeighbour(G10_3, 2, C, [])
-
-    result = tabou(graph)
-    print('Tabou')
-    printOrderedDict(result)
-    
-    
-    result = branch_bound(graph)
-    print('Branc and bound')
-    printOrderedDict(result)
-    
-    #sortedResult = dict(sorted(result.items()))
-    #for val in sortedResult.values() :
-        #print(val, end=" ")
-    #print()
-    #print("*" * 40)

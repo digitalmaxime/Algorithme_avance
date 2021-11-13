@@ -20,5 +20,6 @@ def Build_graph(path):
 
 if __name__ == "__main__":
     #For testing, ex5_0 is used
-    graph = Build_graph("./instances/ex5_0")
+    # graph = Build_graph("./instances/ex5_0")
+    (graph, numberOfVertices) = Build_graph("./instances/ex5_0")
     print(graph)

@@ -1,6 +1,8 @@
 Algorithme avancé
 cours d'algorithme avancé de poly
 
+setup run -> python3 convert_to_instances.py # will generate adjacences lists
+
 1)    
     run -> main.sh
     

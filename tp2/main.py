@@ -57,7 +57,7 @@ if __name__ == "__main__":
             
         #prepare results file
         with open('results_{}.csv'.format(algo), 'a') as f:
-            f.write("{};{};{};\n".format(algo, nbVertices, round(result[Params.time], 4)))
+            f.write("{};{};{};{}\n".format(algo, nbVertices, round(result[Params.time], 4), Helper.findNbOfUniqueColorsInSolution(result[Params.coloration])))
 
         # show output if user asked for it
         if (should_print_solution):
@@ -71,5 +71,5 @@ if __name__ == "__main__":
             
         if (should_print_time_execution):
             print("*" * 40)
-            print("it took {} milliseconds ...".format(result[Params.time]))
+            print(result[Params.time])
 

@@ -1,6 +1,5 @@
 import copy
 
-from read_file import Build_graph
 from graph import Helper
 from glutton import glutton
 
@@ -46,6 +45,7 @@ def branch_bound(G) :
             if nbOfUniqueColorsFound < UB: # si tous les sommets sont dans la coloration, on verifie si le nb de couleurs utilise est meilleur que UB
                 UB = nbOfUniqueColorsFound
                 currentBestSolution = coloration
+                print('b_and_b found a new current Best solution, nb color used: ', Helper.findNbOfUniqueColorsInSolution(currentBestSolution))
         
         elif Helper.findNbOfUniqueColorsInSolution(coloration) < UB: # si {A:0} ne comprend pas tous les sommets, ..vrai
             node_list = explore_node(G, coloration) # explore genere {A:0, B:1}
