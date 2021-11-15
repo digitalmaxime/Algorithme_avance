@@ -1,7 +1,8 @@
 from convert_to_instances import convert_instance
 
 def Build_graph(path):
-    instance_path = './instances/' + path
+    fileName = path.split('/')[-1]
+    instance_path = './instances/' + fileName
     convert_instance(path, instance_path)
     graph = {}
     with open(instance_path) as f:
