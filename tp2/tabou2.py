@@ -55,7 +55,7 @@ def tabouSearch(graph, coloration):
     
     nbOfIterations = 0
     while nbOfIterations < 2*len(coloration): # TODO: choix de condition while        
-        # juste pour faciliter le code python plus tard
+        # juste pour faciliter le code python plus tard, car la liste tabou est de la forme ((vertice, color), time)
         if len(tabouList) > 0:
             trunkatedTabouList = [x[0] for x in tabouList]
         else:
