@@ -24,7 +24,7 @@ def getColorWithMinConflict(vertice, graph, coloration):
 
     for i in range(currentColor - 1, -1, -1): # TODO: ici jai change, c'etait : range(currentColor - 1, 0, -1):
         newColoration[vertice] = i
-        nbOfConflict = getNumberOfConflict(graph, newColoration)
+        nbOfConflict = getNumberOfConflictOfSpecificVertice(graph, newColoration, vertice)
         if(nbOfConflict <= minNumberOfConflicts):
             minNumberOfConflicts = nbOfConflict
             currentColor = i
@@ -38,6 +38,13 @@ def getNumberOfConflict(graph, coloration):
             if(coloration[vertice] == coloration[neighbour]):
                 nbOfConflict += 1
     return nbOfConflict / 2
+
+def getNumberOfConflictOfSpecificVertice(graph, coloration, vertice):
+    nbOfConflict = 0
+    for neighbour in graph[vertice]: 
+        if(coloration[vertice] == coloration[neighbour]):
+            nbOfConflict += 1
+    return nbOfConflict
 
 
 def tabouSearch(graph, coloration):
