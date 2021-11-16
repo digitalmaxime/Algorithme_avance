@@ -1,10 +1,7 @@
 from glutton import glutton
-from branch_and_bound import branch_bound
 from graph import Helper
 from random import randrange
 import copy
-
-from read_file import Build_graph
 
 G = { 
    "a" : ["b","c"],
@@ -84,10 +81,11 @@ def tabouSearch(graph, coloration):
 
     return bestColoration
 
+
 def getBestNeighbour(graph, vertice, coloration, tabouList):
     numberOfColorsAvailable = max(coloration.values()) + 1
     colorsInTabouList = []
-    for couple in tabouList:
+    for couple in tabouList: #Worst case : O(V*(K-1))
         if (couple[0] == vertice):
             colorsInTabouList.append(couple[1])
     minNumberOfConflicts = float('inf')
@@ -95,10 +93,10 @@ def getBestNeighbour(graph, vertice, coloration, tabouList):
     #print('colors in tabou list for vertice :', vertice)
     #print(colorsInTabouList)
 
-    for i in range(numberOfColorsAvailable - 1, -1, -1):
+    for i in range(numberOfColorsAvailable - 1, -1, -1): #O(K-1)
         if(i != coloration[vertice] and i not in colorsInTabouList):
             newColoration[vertice] = i
-            nbOfConflict = getNumberOfConflict(graph, copy.deepcopy(newColoration))
+            nbOfConflict = getNumberOfConflict(graph, copy.deepcopy(newColoration)) #O(V²)
             if(nbOfConflict < minNumberOfConflicts):
                 minNumberOfConflicts = nbOfConflict
     #printOrderedDict(newColoration)
@@ -143,32 +141,23 @@ def printOrderedDict(result):
     for val in sortedResult.values() :
         print(val, end=" ")
     print()
-    print('nombre de couleur : ', Helper.findNbOfUniqueColorsInSolution(result))
     print("*" * 40)
 
 if __name__ == "__main__":
-    (graph, numberOfVertices) = Build_graph("./instances/ex50_0")
-    
-    colorationGlutton = glutton(graph)
-    print('Glouton : ')
-    printOrderedDict(colorationGlutton)
-
-    # bestCol = tabouSearch(G10_3, C)
-    # print('FINAL')
-    # printOrderedDict(bestCol)
+    #colorationGlutton = glutton(G10_3)
+    #print('Result glouton : ')
+    #printOrderedDict(colorationGlutton)
+    result = tabou(G10_3)
+    printOrderedDict(result)
+    #bestCol = tabouSearch(G10_3, C)
+    #print('FINAL')
+    #printOrderedDict(bestCol)
     #print('new coloration with conflict :')
     #printOrderedDict(C)
     #getBestNeighbour(G10_3, 2, C, [])
 
-    result = tabou(graph)
-    print('Tabou')
-    printOrderedDict(result)
-    
-    
-    result = branch_bound(graph)
-    print('Branc and bound')
-    printOrderedDict(result)
-    
+    #result = tabou(G10_3)
+    #printOrderedDict(result)
     #sortedResult = dict(sorted(result.items()))
     #for val in sortedResult.values() :
         #print(val, end=" ")

@@ -1,8 +1,8 @@
 echo 'Debut des algos!'
-mkdir instances
+mkdir -p instances
 python3 convert_to_instances.py
 
-folder='instances'
+folder='generated_files'
 testsets=$(ls ./$folder)
 
 echo "glouton; nb_vertices; time; nbColorUsed" > ./results_glouton.csv

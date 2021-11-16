@@ -5,7 +5,7 @@ def convert_instance(sourceFilePath, newFileName):
 def convert_to_matrix(filePath):
     with open(filePath) as f:
         for line in f.readlines():
-            line = line.split(' ');
+            line = line.split(' ')
             if line[0] == 'p':
                 numberOfVertices = int(line[2])
                 matrix = buildMatrixOfZeros(numberOfVertices)
@@ -42,7 +42,7 @@ if __name__ == "__main__":
     # m = buildMatrixOfZeros(5)
     # print(m)
     #For testing, ex5_0 is used
-    for size in [20, 25, 30, 35, 40, 45, 50]:
+    for size in [20, 25, 30, 35, 40, 45, 50, 55, 60, 65, 70]:
         for ex in [0, 1, 2, 3, 4]:
             convert_instance("./generated_files/gen_ex{}_{}".format(size, ex), './instances/ex{}_{}'.format(size, ex))
     # print(graph)
