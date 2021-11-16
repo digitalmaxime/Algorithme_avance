@@ -3,6 +3,7 @@ from glutton import glutton
 from graph import Helper
 from random import randrange
 import copy
+from tabou3 import tabucol
 
 from branch_and_bound import branch_bound
 from read_file import Build_adjacent_list_graph, Build_graph
@@ -68,7 +69,7 @@ def tabou2(graph):
     
     #BOUCLE
     counter = 0
-    while counter < 100:
+    while counter < 1000:
         #generation de voisins
             #generer nouvelles colorations a partir de la coloration courante
         generatedNeighbours = []
@@ -220,7 +221,10 @@ if __name__ == "__main__":
     printOrderedDict(colorationTabou)
     print(Helper.findNbOfUniqueColorsInSolution(colorationTabou))
     
-    
+    colorationTabou3 = tabucol(graph2, 20)
+    print('Result tabou3 : ')
+    printOrderedDict(colorationTabou3)
+    print(Helper.findNbOfUniqueColorsInSolution(colorationTabou3))
     # colorationTabou = tabou(graph1)
     # print('Result tabou : ')
     # printOrderedDict(colorationTabou)
