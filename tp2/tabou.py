@@ -2,6 +2,9 @@ from glutton import glutton
 from graph import Helper
 from random import randrange
 import copy
+from branch_and_bound import branch_bound
+from read_file import Build_adjacent_list_graph, Build_graph
+from tabou3 import tabucol
 
 G = { 
    "a" : ["b","c"],
@@ -27,12 +30,18 @@ def tabou(graph):
         lastColoration = copy.deepcopy(newColorationWithoutConflict)
         newColorationWithConflict = colorReduction(graph, copy.deepcopy(newColorationWithoutConflict))
         resultTabou = tabouSearch(graph, copy.deepcopy(newColorationWithConflict))
+        print('-' * 40)
+        print(resultTabou)
+        print('-' * 40)
         numberOfConflictTabou = getNumberOfConflict(graph, copy.deepcopy(resultTabou))
 
         if (numberOfConflictTabou > 0): 
             newColorationWithoutConflict = lastColoration
+            print('newColorationWithoutConflict = lastColoration')
         else: 
             newColorationWithoutConflict = resultTabou
+            print('newColorationWithoutConflict = resultTabou')
+            
     return newColorationWithoutConflict
 
 def tabouSearch(graph, coloration): 
@@ -90,17 +99,24 @@ def getBestNeighbour(graph, vertice, coloration, tabouList):
             colorsInTabouList.append(couple[1])
     minNumberOfConflicts = float('inf')
     newColoration = copy.deepcopy(coloration)
+    originalNewColoration = copy.deepcopy(coloration)
     #print('colors in tabou list for vertice :', vertice)
     #print(colorsInTabouList)
-
+    bestTuple= tuple()
+    
     for i in range(numberOfColorsAvailable - 1, -1, -1): #O(K-1)
+        newColoration = copy.deepcopy(originalNewColoration)
         if(i != coloration[vertice] and i not in colorsInTabouList):
             newColoration[vertice] = i
             nbOfConflict = getNumberOfConflict(graph, copy.deepcopy(newColoration)) #O(V²)
             if(nbOfConflict < minNumberOfConflicts):
                 minNumberOfConflicts = nbOfConflict
+                bestTuple = (vertice, i)
+                
+    if bestTuple != ():
+        originalNewColoration[bestTuple[0]] = bestTuple[1]
     #printOrderedDict(newColoration)
-    return newColoration
+    return originalNewColoration
 
 
 #Worst case : Theta(V⁴)
@@ -110,7 +126,7 @@ def colorReduction(graph, coloration):
 
     for vertice in coloration.keys(): 
         if(coloration[vertice] == numberOfColorUsed - 1):
-            colorationReduced[vertice] = getColorWithMinConflict(vertice, graph, copy.deepcopy(coloration))
+            colorationReduced[vertice] = getColorWithMinConflict(vertice, graph, copy.deepcopy(colorationReduced)) # TODO: ici chage coloration a colorationReduced
     return colorationReduced
 
 #Worst case : Theta(V²)
@@ -131,7 +147,7 @@ def getColorWithMinConflict(vertice, graph, coloration):
     for i in range(currentColor - 1, 0, -1):
         newColoration[vertice] = i
         nbOfConflict = getNumberOfConflict(graph, copy.deepcopy(newColoration))
-        if(nbOfConflict < minNumberOfConflicts):
+        if(nbOfConflict <= minNumberOfConflicts):
             minNumberOfConflicts = nbOfConflict
             currentColor = i
     return currentColor
@@ -144,11 +160,35 @@ def printOrderedDict(result):
     print("*" * 40)
 
 if __name__ == "__main__":
-    #colorationGlutton = glutton(G10_3)
-    #print('Result glouton : ')
-    #printOrderedDict(colorationGlutton)
-    result = tabou(G10_3)
-    printOrderedDict(result)
+    
+    (graph1, num) = Build_graph("./generated_files/gen_ex40_0")
+    graph2 = Build_adjacent_list_graph("./instances/ex40_0")
+    
+    colorationGlutton = glutton(graph1)
+    print('Result glouton : ')
+    printOrderedDict(colorationGlutton)
+    print(Helper.findNbOfUniqueColorsInSolution(colorationGlutton))
+    
+    colorationBranch = branch_bound(graph1)
+    print('Result branch : ')
+    printOrderedDict(colorationBranch)
+    print(Helper.findNbOfUniqueColorsInSolution(colorationBranch))
+    
+    colorationTabou = tabou(graph1)
+    print('Result tabou : ')
+    printOrderedDict(colorationTabou)
+    print(Helper.findNbOfUniqueColorsInSolution(colorationTabou))
+    
+    
+    # colorationTabou3 = tabucol(graph2, 23)
+    # print('Result tabou3 : ')
+    # printOrderedDict(colorationTabou3)
+    # print(Helper.findNbOfUniqueColorsInSolution(colorationTabou3))
+    
+    
+    
+    
+    
     #bestCol = tabouSearch(G10_3, C)
     #print('FINAL')
     #printOrderedDict(bestCol)
