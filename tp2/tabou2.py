@@ -2,6 +2,8 @@ from glutton import glutton
 from graph import Helper
 from random import randrange
 import copy
+from read_file import Build_graph
+from branch_and_bound import branch_bound
 
 
 def colorReduction(graph, coloration): 
@@ -110,4 +112,22 @@ def tabou2(graph):
             bestColorationWithoutConflict = copy.copy(resultTabou)
     return bestColorationWithoutConflict
     
+
+if __name__ == "__main__":
+    
+    (graph1, num) = Build_graph("./generated_files/gen_ex30_2")
+    
+    colorationGlutton = glutton(graph1)
+    print('Result glouton : ')
+    print(Helper.findNbOfUniqueColorsInSolution(colorationGlutton))
+    print("-" * 60)
+    colorationBranch = branch_bound(graph1)
+    print('Result branch : ')
+    print(Helper.findNbOfUniqueColorsInSolution(colorationBranch))
+    print("-" * 60)
+    
+    colorationTabou = tabou2(graph1)
+    print('Result tabou : ')
+    print(Helper.findNbOfUniqueColorsInSolution(colorationTabou))
+    print("-" * 60)
     
