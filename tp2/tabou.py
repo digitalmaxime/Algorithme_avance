@@ -12,7 +12,7 @@ def colorReduction(graph, coloration):
     
     for vertice in coloration.keys(): 
         if(coloration[vertice] == maxColorUsed):
-            color = getColorWithMinConflict(vertice, graph, colorationReduced)  # TODO: ici chage coloration a colorationReduced
+            color = getColorWithMinConflict(vertice, graph, colorationReduced)
             colorationReduced[vertice] = color
     return colorationReduced
 
@@ -22,7 +22,7 @@ def getColorWithMinConflict(vertice, graph, coloration):
     newColoration = copy.copy(coloration)
     minNumberOfConflicts = float('inf')
 
-    for i in range(currentColor - 1, -1, -1): # TODO: ici jai change, c'etait : range(currentColor - 1, 0, -1):
+    for i in range(currentColor - 1, -1, -1):
         newColoration[vertice] = i
         nbOfConflict = getNumberOfConflictOfSpecificVertice(graph, newColoration, vertice)
         if(nbOfConflict <= minNumberOfConflicts):
@@ -54,7 +54,7 @@ def tabouSearch(graph, coloration):
     tabouList = []
     
     nbOfIterations = 0
-    while nbOfIterations < 2*len(coloration): # TODO: choix de condition while        
+    while nbOfIterations < 2*len(coloration):
         # Used to facilitate python code, tabou list is under the form ((vertice, color), time)
         if len(tabouList) > 0:
             trunkatedTabouList = [x[0] for x in tabouList]
@@ -118,24 +118,3 @@ def tabou(graph):
         else: 
             bestColorationWithoutConflict = copy.copy(resultTabou)
     return bestColorationWithoutConflict
-    
-
-#TODO: Enlever pour la remise le main 
-if __name__ == "__main__":
-    
-    (graph1, num) = Build_graph("./generated_files/gen_ex30_2")
-    
-    colorationGlutton = glutton(graph1)
-    print('Result glouton : ')
-    print(Helper.findNbOfUniqueColorsInSolution(colorationGlutton))
-    print("-" * 60)
-    colorationBranch = branch_bound(graph1)
-    print('Result branch : ')
-    print(Helper.findNbOfUniqueColorsInSolution(colorationBranch))
-    print("-" * 60)
-    
-    colorationTabou = tabou(graph1)
-    print('Result tabou : ')
-    print(Helper.findNbOfUniqueColorsInSolution(colorationTabou))
-    print("-" * 60)
-    
