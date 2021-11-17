@@ -30,20 +30,20 @@ def checkIfAllVerticesInSolution(solution, graph) :
 
 
 def branch_bound(G) :
-    currentBestSolution = glutton(G) # approximation de la meilleure solution via glouton
-    UB = Helper.findNbOfUniqueColorsInSolution(currentBestSolution) # upper bound, la valeur qu'on essaie d'ameliorer
+    currentBestSolution = glutton(G) 
+    UB = Helper.findNbOfUniqueColorsInSolution(currentBestSolution) # Upper bound
 
     node_pile = []
     coloration = {}
     vertice = Helper.getVerticeWithMaxDegree(G)
     coloration[vertice] = 0
-    node_pile.append(coloration) # pile LIFO pour fouille en profondeur
+    node_pile.append(coloration) # LIFO for deep search
     while node_pile:
         coloration = node_pile.pop()
 
         if checkIfAllVerticesInSolution(coloration, G):
             nbOfUniqueColorsFound = Helper.findNbOfUniqueColorsInSolution(coloration)
-            if nbOfUniqueColorsFound < UB: # si tous les sommets sont dans la coloration, on verifie si le nb de couleurs utilise est meilleur que UB
+            if nbOfUniqueColorsFound < UB: 
                 UB = nbOfUniqueColorsFound
                 currentBestSolution = coloration
         

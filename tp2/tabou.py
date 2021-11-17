@@ -48,21 +48,21 @@ def getNumberOfConflictOfSpecificVertice(graph, coloration, vertice):
 
 
 def tabouSearch(graph, coloration):
-    # recherche tabou
+    # Tabou search
     bestColoration = coloration
     currentColoration = bestColoration
     tabouList = []
     
     nbOfIterations = 0
     while nbOfIterations < 2*len(coloration): # TODO: choix de condition while        
-        # juste pour faciliter le code python plus tard, car la liste tabou est de la forme ((vertice, color), time)
+        # Used to facilitate python code, tabou list is under the form ((vertice, color), time)
         if len(tabouList) > 0:
             trunkatedTabouList = [x[0] for x in tabouList]
         else:
             trunkatedTabouList = []
             
-        # generation de voisins
-        # i.e generer nouvelles colorations a partir de la coloration courante
+        # Neighbours generation
+        # i.e generate new colorations from current coloration 
         generatedNeighbours = []
         for vertice in currentColoration.keys():
             for color in range(max(currentColoration.values())):
@@ -71,7 +71,7 @@ def tabouSearch(graph, coloration):
                     newColoration[vertice] = color
                     generatedNeighbours.append((newColoration, (vertice, color)))
         
-        # trouver le meilleur voisin (min conflits)
+        # Find best neighbour (min conflits)
         bestIndex = 0
         minNumberOfConflict = float('inf')
         for idx, neighbour in enumerate(generatedNeighbours):
@@ -83,18 +83,18 @@ def tabouSearch(graph, coloration):
         bestNeighbour = generatedNeighbours[bestIndex][0]
         currentColoration = bestNeighbour
         
-        # ajout de couple de reference a la list tabou de la forme ((vertice, color), time)
+        # Add reference couple to tabou list under the form ((vertice, color), time)
         tupleVerticeColorOfReference = generatedNeighbours[bestIndex][1]
         tabouList.append([(tupleVerticeColorOfReference), 2*minNumberOfConflict + randrange(1,10)])
         
-        # evaluter si la solution trouvee est meilleure que le bestColoration
+        # Evaluate if the solution is better than bestColoration
         nbOfConflictsOfCurrentColoration = getNumberOfConflict(graph, currentColoration)
         nbOfConflictsOfBestColoration = getNumberOfConflict(graph, bestColoration)
         if nbOfConflictsOfCurrentColoration < nbOfConflictsOfBestColoration:
             bestColoration = currentColoration
             nbOfIterations = 0
         
-        #update tabou list
+        # Update tabou list
         for item in tabouList:
             item[1] -= 1
         tabouList[:] = [x for x in tabouList if x[1] > 0]
@@ -120,6 +120,7 @@ def tabou(graph):
     return bestColorationWithoutConflict
     
 
+#TODO: Enlever pour la remise le main 
 if __name__ == "__main__":
     
     (graph1, num) = Build_graph("./generated_files/gen_ex30_2")

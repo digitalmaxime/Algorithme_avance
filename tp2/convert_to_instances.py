@@ -39,10 +39,6 @@ def buildMatrixOfZeros(n):
     return matrix 
 
 if __name__ == "__main__":
-    # m = buildMatrixOfZeros(5)
-    # print(m)
-    #For testing, ex5_0 is used
     for size in [20, 25, 30, 35, 40, 45, 50]:
         for ex in [0, 1, 2, 3, 4]:
             convert_instance("./generated_files/gen_ex{}_{}".format(size, ex), './instances/ex{}_{}'.format(size, ex))
-    # print(graph)

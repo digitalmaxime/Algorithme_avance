@@ -17,18 +17,18 @@ class Helper:
     def findMaxSaturatedVertice(graph, coloration):
         mostSaturatedVertices = []
         maxSatDegree = 0
-        for vertice in graph.keys(): #Get max degree of saturation
+        for vertice in graph.keys(): # Get max degree of saturation
             if vertice not in coloration.keys():
                 satDegree = Helper.getSaturationDegree(vertice, graph, coloration)
                 if satDegree > maxSatDegree:
                     maxSatDegree = satDegree
-        for vertice in graph.keys(): #Get vertices with that degree
+        for vertice in graph.keys(): # Get vertices with that degree
             if vertice not in coloration.keys():
                 satDegree = Helper.getSaturationDegree(vertice, graph, coloration)
                 if satDegree == maxSatDegree:
                     mostSaturatedVertices.append(vertice)
                     
-        if len(mostSaturatedVertices) > 1: #Get THE vertice
+        if len(mostSaturatedVertices) > 1: # Get the vertice with max saturated degree
             subGraph = {}
             for mostSaturatedVertice in mostSaturatedVertices:
                 subGraph[mostSaturatedVertice] = graph[mostSaturatedVertice]
