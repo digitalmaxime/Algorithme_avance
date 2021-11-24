@@ -1,5 +1,6 @@
 Algorithme avancé
 cours d'algorithme avancé de poly
+matricules 1946878 1897918
 
 setup run -> python3 convert_to_instances.py # will generate adjacences lists
 
