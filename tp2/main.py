@@ -44,7 +44,7 @@ if __name__ == "__main__":
 
         (graphDict, nbVertices) = Build_graph(path_to_testset)
 
-        # switch case here
+        # Switch case here
         initial_time = time.perf_counter()
         if algo == 'glouton':
             coloration = glutton(graphDict)
@@ -55,7 +55,7 @@ if __name__ == "__main__":
         execution_time = (time.perf_counter() - initial_time)*1000
         result = tuple((coloration, execution_time))
             
-        #prepare results file
+        # Prepare results file
         with open('results_{}.csv'.format(algo), 'a') as f:
             f.write("{};{};{};{}\n".format(algo, nbVertices, round(result[Params.time], 4), Helper.findNbOfUniqueColorsInSolution(result[Params.coloration])))
 
