@@ -2,9 +2,10 @@ graph = { 0 : [1, 2],
           1 : [3, 6, 0],
           2 : [4, 5, 0],
           3 : [1],
-          4 : [6, 2],
+          4 : [6, 2, 7],
           5 : [6, 2],
-          6 : [1, 4, 5]}
+          6 : [1, 4, 5],
+          7: [4]}
 
 
 def findAllPaths(graph, v):
@@ -33,10 +34,8 @@ def findAllPaths(graph, v):
 if __name__ == '__main__':
     allPaths = []
     for vertice in graph: 
-        result = sorted(paths(graph, vertice))
+        result = sorted(findAllPaths(graph, vertice))
         for path in result:
             allPaths.append(path)
-
-    print(allPaths)
         
 
