@@ -8,6 +8,7 @@ import time
 from check_sol import load_instance
 from build_graph import Build_graph
 from algo_graph import findAllPaths
+from helper import print_graph
 
 if __name__ == "__main__":
         
@@ -30,7 +31,8 @@ if __name__ == "__main__":
         instance_data = load_instance(path_to_testset)
 
         (graphDict, nbVertices) = Build_graph(instance_data)
-        print(graphDict)
+        #print(graphDict)
+        print_graph(graphDict)
 
         allPaths = []
         #for vertice in graphDict: 
