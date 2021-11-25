@@ -1,13 +1,13 @@
 import copy
 import time 
-graph = { 0 : [1, 2],
-          1 : [3, 6, 0],
-          2 : [4, 5, 0],
-          3 : [1],
-          4 : [6, 2, 7],
-          5 : [6, 2],
-          6 : [1, 4, 5],
-          7: [4]}
+graph = { 1 : [2, 3],
+          2 : [4, 7, 1],
+          3 : [5, 6, 1],
+          4 : [2],
+          5 : [7, 3, 8],
+          6 : [7, 3],
+          7 : [2, 5, 6],
+          8: [5]}
 
 graph2 = { 
         1 : [3, 4, 8],
@@ -105,6 +105,7 @@ def findAPath(graph):
                 path.reverse()
                 nbOfObstructions = findNbOfObstructions(path)
                 if nbOfObstructions < solution[1]:
+                    print("HHHHHHHHELLLOOOOOOO")
                     solution = (path, nbOfObstructions)
                     print(solution)
                 break 
@@ -132,7 +133,6 @@ def findNbOfObstructions(path):
 
 if __name__ == '__main__':
     solution = findAPath(graph4)
-    print(solution)
     nbOfObstructions = findNbOfObstructions(solution[0])
-    print(solution[1])
-    print(nbOfObstructions)
+    print("Last solution found : ", solution[0])
+    print("nb of obstructions: ", solution[1])

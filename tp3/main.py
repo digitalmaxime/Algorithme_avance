@@ -34,8 +34,9 @@ if __name__ == "__main__":
         # print(graphDict)
 
         singlePath = findAPath(graphDict)
+        print("solution found: ", singlePath[0])
         
-        allPaths = []
+        #allPaths = []
         #for vertice in graphDict: 
             #result = sorted(findAllPaths(graphDict, vertice))
             #for path in result:
