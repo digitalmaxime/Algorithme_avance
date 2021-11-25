@@ -63,61 +63,64 @@ def findAPath(graph):
     
     for startingNode in decreasingOrderedStudent:
         node_pile = []
-        tabouList = []
+        tabouList = {}
         path = []
         print('*' * 60)
         print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
-        node_pile.append(startingNode)
+        node_pile.append((startingNode, graph[startingNode]))
+        path.append(startingNode)
         
         while(node_pile):
-            lastPlacedStudentInLine = node_pile.pop()
+            # tuple -> (student, [his available friends])
+            firstStudentTuple = node_pile[-1]
+            tallestFriend = firstStudentTuple[1].pop()
             
+            path.append(tallestFriend)
+            #check win condition
+            if len(path) == totalNbOfStudents:
+                print('========= solution found ========= ')
+                path.reverse()
+                nbOfObstructions = findNbOfObstructions(path)
+                if nbOfObstructions < solution[1]:
+                    solution = (path, nbOfObstructions)
+                    print(solution)
+                break
+                
             print('-' * 50)
-            print('--lastPlacedStudentInLine--', lastPlacedStudentInLine)
-            if lastPlacedStudentInLine in path:
-                print('popped {} was already in path, ignore him..'.format(lastPlacedStudentInLine))
+            print('--firstStudent--', firstStudentTuple)
+            if firstStudentTuple[0] in path:
+                print('popped {} was already in path, ignore him..'.format(firstStudentTuple[1]))
                 continue
             
             # case where element (friend) in LIFO doesnt belong to path[-1], perhaps its a friend of path[-2]..
-            while path and lastPlacedStudentInLine not in graph[path[-1]]:
-                print('    Popped node doesnt match with current first in line')
-                print('    --path[-1]', path[-1])
-                tabouList.append(path[-1])
-                path.pop()
-                print('    --updated path', path)
-                time.sleep(2)
+            # while path and firstStudent not in graph[path[-1]]:
+            #     print('    Popped node doesnt match with current first in line')
+            #     print('    --path[-1]', path[-1])
+            #     tabouList.append(path[-1])
+            #     path.pop()
+            #     print('    --updated path', path)
+            #     time.sleep(2)
             
             friendsAvailable = []
-            hisFriends = graph[lastPlacedStudentInLine]
+            hisFriends = graph[firstStudentTuple[0]]
             for friend in hisFriends:
-                if friend not in path and friend not in tabouList:
+                if friend not in path and friend not in tabouList[firstStudentTuple[0]]:
                     friendsAvailable.append(friend)
             
             friendsAvailable.sort() # les plus grands sont vers la 'droite', donc ils seront pop en premier
             
-            if not friendsAvailable and len(path) != totalNbOfStudents - 1:
-                tabouList.append(lastPlacedStudentInLine)
-                print('    BACKTRACK NEEDED, no available friends..and path is not quite ready yet, messed up node: ', lastPlacedStudentInLine)
+            if not friendsAvailable:
+            # and len(path) != totalNbOfStudents - 1:
+                path.pop()
+                tabouList[path[-1]].append(firstStudentTuple[0])
+                print('    BACKTRACK NEEDED, no available friends..and path is not quite ready yet, messed up node: ', firstStudentTuple[0])
                 if len(path) == 1:
                     print('epuise toute les ressources, il faut commencer du debut avec un nouveau noeud! ...')
                     break
                         
             else :
-                path.append(lastPlacedStudentInLine)
+                node_pile.append((firstStudentTuple[0], friendsAvailable))
                 
-                #check win condition
-                if len(path) == totalNbOfStudents:
-                    print('========= solution found ========= ')
-                    path.reverse()
-                    nbOfObstructions = findNbOfObstructions(path)
-                    if nbOfObstructions < solution[1]:
-                        solution = (path, nbOfObstructions)
-                        print(solution)
-                    break
-                
-                for friend in friendsAvailable:
-                    node_pile.append(friend)
-            
             print('path so far :  :', path)
             print('node pile after filling with new friends :', node_pile, 'tabou list : ', tabouList)
         
