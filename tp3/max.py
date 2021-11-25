@@ -57,8 +57,8 @@ graph4 = {
 
 def findAPath(graph):
     totalNbOfStudents = len(graph)
-    decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True)
-    print(decreasingOrderedStudent)
+    decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
+    #print(decreasingOrderedStudent)
     solution = ([], float('inf'))
     
     for startingNode in decreasingOrderedStudent:
@@ -67,17 +67,18 @@ def findAPath(graph):
         path = []
         for student in decreasingOrderedStudent:
             tabouList[student] = []
-        print('*' * 60)
-        print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
+        #print('*' * 60)
+        #print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
 
         currentStudent = startingNode
         path.append(currentStudent)
+        print("currentStudent: ", currentStudent)
         
-        while(currentStudent): #TODO:Revoir si encore valide puisqu'on pop pas la node_list 
-            print("currentStudent : ", currentStudent)
+        while(currentStudent):
+            #print("currentStudent : ", currentStudent)
             friendsAvailable = []
             hisFriends = graph[currentStudent]
-            print("his friend: ", hisFriends)
+            #print("his friend: ", hisFriends)
             for friend in hisFriends:
                 if friend not in path and friend not in tabouList[currentStudent]:
                     friendsAvailable.append(friend)
@@ -89,7 +90,7 @@ def findAPath(graph):
                 path.pop()
                 tabouList[path[-1]].append(currentStudent)
                 currentStudent = path[-1]
-                print('BACKTRACK NEEDED, no available friends..and path is not quite ready yet, messed up node: ', currentStudent)
+                #print('BACKTRACK NEEDED, no available friends..and path is not quite ready yet, messed up node: ', currentStudent)
                 if len(path) == 1:
                     print('epuise toute les ressources, il faut commencer du debut avec un nouveau noeud! ...')
                     break
@@ -110,8 +111,8 @@ def findAPath(graph):
                     print(solution)
                 break 
                 
-            print('path so far :  :', path)
-            print('node pile after filling with new friends :', node_pile, 'tabou list : ', tabouList)
+            #print('path so far :  :', path)
+            #print('node pile after filling with new friends :', node_pile, 'tabou list : ', tabouList)
     
     if (solution[0] == []):
         print("NO SOLUTION FOUND !! :(")
