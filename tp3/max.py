@@ -103,7 +103,7 @@ def findAPath(graph):
             if len(path) == totalNbOfStudents:
                 print('========= solution found ========= ')
                 path.reverse()
-                nbOfObstructions = findNbOfObstructions(path) #Pas sure de comprendre cest quoi le nbOfObstruction si on a un path valide?
+                nbOfObstructions = findNbOfObstructions(path)
                 if nbOfObstructions < solution[1]:
                     solution = (path, nbOfObstructions)
                     print(solution)
