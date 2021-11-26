@@ -113,6 +113,8 @@ def findAPath(graph):
                     if nbOfObstructions < solution[1]:
                         print('======== better solution found ======== ')
                         solution = (path, nbOfObstructions)
+                    #TODO: au lieu de break, check si une solution (avec le mm starting node) serait meilleure. (implique plus d'iteration)
+                    # comme par exemple l'exemple 'graph4' (jai noté une meilleure solution que l'algo ne trouve pas en ce moment)
                     break 
                 
                 path.pop()
