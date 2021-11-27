@@ -65,26 +65,26 @@ def findAPath(graph):
         node_pile = []
         tabouList = []
         path = []
-        print('*' * 60)
-        print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
+        # print('*' * 60)
+        # print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
         node_pile.append(startingNode)
         
         while(node_pile):
             lastPlacedStudentInLine = node_pile.pop()
             
-            print('-' * 50)
-            print('--lastPlacedStudentInLine--', lastPlacedStudentInLine)
+            # print('-' * 50)
+            # print('--lastPlacedStudentInLine--', lastPlacedStudentInLine)
             if lastPlacedStudentInLine in path:
-                print('popped {} was already in path, ignore him..'.format(lastPlacedStudentInLine))
+                # print('popped {} was already in path, ignore him..'.format(lastPlacedStudentInLine))
                 continue
             
             # case where element (friend) in LIFO doesnt belong to path[-1], perhaps its a friend of path[-2]..
             while path and lastPlacedStudentInLine not in graph[path[-1]]:
-                print('    Popped node doesnt match with current first in line')
-                print('    --path[-1]', path[-1])
+                # print('    Popped node doesnt match with current first in line')
+                # print('    --path[-1]', path[-1])
                 tabouList.append(path[-1])
                 path.pop()
-                print('    --updated path', path)
+                # print('    --updated path', path)
                 time.sleep(2)
             
             friendsAvailable = []
@@ -97,9 +97,9 @@ def findAPath(graph):
             
             if not friendsAvailable and len(path) != totalNbOfStudents - 1:
                 tabouList.append(lastPlacedStudentInLine)
-                print('    BACKTRACK NEEDED, no available friends..and path is not quite ready yet, messed up node: ', lastPlacedStudentInLine)
+                # print('    BACKTRACK NEEDED, no available friends..and path is not quite ready yet, messed up node: ', lastPlacedStudentInLine)
                 if len(path) == 1:
-                    print('epuise toute les ressources, il faut commencer du debut avec un nouveau noeud! ...')
+                    # print('epuise toute les ressources, il faut commencer du debut avec un nouveau noeud! ...')
                     break
                         
             else :
@@ -107,7 +107,7 @@ def findAPath(graph):
                 
                 #check win condition
                 if len(path) == totalNbOfStudents:
-                    print('========= solution found ========= ')
+                    # print('========= solution found ========= ')
                     path.reverse()
                     nbOfObstructions = findNbOfObstructions(path)
                     if nbOfObstructions < solution[1]:
@@ -118,8 +118,8 @@ def findAPath(graph):
                 for friend in friendsAvailable:
                     node_pile.append(friend)
             
-            print('path so far :  :', path)
-            print('node pile after filling with new friends :', node_pile, 'tabou list : ', tabouList)
+            # print('path so far :  :', path)
+            # print('node pile after filling with new friends :', node_pile, 'tabou list : ', tabouList)
         
         break # TODO: enlever le break!!
     

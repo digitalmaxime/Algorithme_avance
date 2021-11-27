@@ -7,9 +7,9 @@ import time
 
 from check_sol import load_instance
 from build_graph import Build_graph
-from max import findAPath
-# from algo_graph import findAllPaths
-# from helper import print_graph
+from findAPath import findAPath
+from findAPath import findNbOfObstructions
+from findAPath_decroissant import findAPath_decroissant
 
 def validateSolution(graph, solution):
     if not graph and not solution:
@@ -47,7 +47,22 @@ if __name__ == "__main__":
         (graphDict, nbVertices) = Build_graph(instance_data)
         # print(graphDict)
 
-        singlePath = findAPath(graphDict)
+        # singlePath = findAPath(graphDict)
+        # print("solution found: ", singlePath)
+        # print("nombre d'obstructions : ", findNbOfObstructions(singlePath))
+        # print('Validation (is path found valide?) : ')
+        # print(validateSolution(graphDict, singlePath))
+
+
+        # TODO: comprendre pk findAPath_croissant est vraiment meilleur avec 66_970, mais pas avec les autres instances..
+        (graphDict, nbVertices) = Build_graph(instance_data)
+        print('length of graph', len(graphDict))
+        singlePath2 = findAPath_decroissant(graphDict)
+        print("solution2 found: ", singlePath2)
+        print("nombre d'obstructions2 : ", findNbOfObstructions(singlePath2))
+        print('Validation (is path found valide?) : ')
+        print(validateSolution(graphDict, singlePath2))
+        
         
         allPaths = []
         #for vertice in graphDict: 

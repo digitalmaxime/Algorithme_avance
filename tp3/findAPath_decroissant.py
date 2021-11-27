@@ -75,7 +75,7 @@ def findAPath_decroissant(graph):
         counter = 0;
         while(node_pile):
             counter += 1
-            if counter == 100000: # extremement hardcodé, ca fait une difference sur 66_970
+            if counter == 10000: # extremement hardcodé, ca fait une difference sur 66_970
                 ### TODO: faire qq stats pour le choix de counter
                 ## stats counter == 100'000
                 # 66_99       nbMin = ERREUR, tempsPris = pas bcp
