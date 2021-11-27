@@ -60,44 +60,51 @@ graph4 = {
 
 def findAPath(graph):
     totalNbOfStudents = len(graph)
-    decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
+    increasingOrderedStudent = sorted(list(graph.keys())) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
     solution = ([], float('inf'))
     
-    # c = 0
-    for startingNode in decreasingOrderedStudent:
-        # c += 1
-        # if c == 2:
+    c = 0
+    for startingNode in increasingOrderedStudent:
+        c += 1
+        # if c < 5:
+        #     continue
+        # if c > 5:
         #     break
+        if c == 6:
+            break
         node_pile = []
         path = [] 
         tabouList = {} # TODO: faire en sorte que ce soit un dict de val : set (pas de val dupliquees)
-        for student in decreasingOrderedStudent:
+        for student in increasingOrderedStudent:
             tabouList[student] = []
         
         # print('*' * 60)
         # print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
         
         path.append(startingNode)
-        node_pile.append((startingNode, copy.copy(graph[startingNode])))    
+        candidateFriends = sorted(copy.copy(graph[startingNode]), reverse=True)
+        
+        node_pile.append((startingNode, candidateFriends))    
         # print('path: ', path)    
         # print('node_pile: ', node_pile)   
         # print(tabouList) 
+        print(node_pile)
         
         counter = 0;
         while(node_pile):
             counter += 1
-            if counter == 100000: # extremement hardcodé, ca fait une difference sur 66_970
+            if counter == 10000: # extremement hardcodé, ca fait une difference
                 ###
                 ## stats counter == 100'000
-                # 66_99       nbMin = ERREUR, tempsPris = pas bcp
-                # 66_534      nbMin = 40, tempsPris = 1min 6sec
-                # 66_970      nbMin = 32, tempsPris = 2min 23sec
-                # 118_178     nbMin = ERREUR, tempsPris = 1min 30
-                # 118_1570    nbMin = 85, tempsPris = environ 5min
-                # 118_2962    nbMin = 58, tempsPris = 9min 30
-                # 558_837     nbMin = ERREUR, tempsPris = 19 min
-                # 558_31973   nbMin = , tempsPris =
-                # 558_63109   nbMin = , tempsPris =
+                # 66_99       nbMin = 
+                # 66_534      nbMin = 
+                # 66_970      nbMin = 
+                # 118_178     nbMin = 
+                # 118_1570    nbMin = 
+                # 118_2962    nbMin = 
+                # 558_837     nbMin = 
+                # 558_31973   nbMin = 
+                # 558_63109   nbMin = 
                 # 
                 ###
                 break
@@ -116,6 +123,11 @@ def findAPath(graph):
             # print('-' * 50)
             # print("currentStudent : ", currentStudent)
             path.append(currentStudent)
+            # lowerBound = findLowerBound(graph, path)
+            # if lowerBound and lowerBound >= solution[1]:
+            #     print("LOWER BOUND NOT EVEN BETTER, SO MOVING ON")
+            #     path.pop()
+            #     continue
             
             friendsAvailable = []
             hisFriends = graph[currentStudent]
@@ -123,21 +135,24 @@ def findAPath(graph):
                 if friend not in path and friend not in tabouList[currentStudent]:
                     friendsAvailable.append(friend)
             
-            friendsAvailable.sort() # les plus grands sont vers la 'droite', donc ils seront pop en premier
+            friendsAvailable.sort(reverse=True) # les plus petits sont vers la 'droite', donc ils seront pop en premier
             
             if not friendsAvailable:
                 ##
                 if len(path) == totalNbOfStudents:
-                    pathInAscendingOrder = copy.copy(path)
-                    pathInAscendingOrder.reverse()
-                    nbOfObstructions = findNbOfObstructions(pathInAscendingOrder)
+                    print('SOLUTION FOUND______________')
+                    print(path)
+                    # pathInAscendingOrder = copy.copy(path)
+                    # pathInAscendingOrder.reverse()
+                    # nbOfObstructions = findNbOfObstructions(pathInAscendingOrder)
+                    nbOfObstructions = findNbOfObstructions(path)
                     
                     if nbOfObstructions < solution[1]:
                         print()
                         print('======== +!+!+!+!+!+ better solution found +!+!+!+!+!+  ======== conflicts: ', nbOfObstructions)
                         
                         solution = (copy.copy(path), nbOfObstructions)
-                        # print(solution)
+                        print(solution)
                 
                 path.pop()
                 tabouList[path[-1]].append(currentStudent)
@@ -152,8 +167,7 @@ def findAPath(graph):
             # print('===> node pile after filling with new friends :', node_pile)
             # print('===> tabou list : ', tabouList)
     
-    # print(solution)
-    solution[0].reverse()
+    # print(solution) 
     # print(solution)
     if (solution[0] == []):
         print("NO SOLUTION FOUND !! :(")
@@ -172,6 +186,27 @@ def findNbOfObstructions(path):
             highestStudent = student
     return nbOfObstructions
     
+def findLowerBound(graph, path):
+    if not path:
+        return -1
+    differenceInLength = len(graph) - len(path)
+    
+    if differenceInLength == 0:
+        return None
+    
+    curretnNbOfObstructions = 0
+    highestStudent = path[0]
+    for student in path:
+        if student < highestStudent:
+            curretnNbOfObstructions += 1
+        elif student > highestStudent:
+            highestStudent = student
+            
+    remainingStudents = [x for x in graph.keys() if x not in path]
+    for student in remainingStudents:
+        if student < highestStudent:
+            curretnNbOfObstructions += 1
+    return curretnNbOfObstructions
 
 # def findFirstDiverginPosition(solution, path):
 #     counter = 0

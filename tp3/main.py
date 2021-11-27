@@ -9,6 +9,7 @@ from check_sol import load_instance
 from build_graph import Build_graph
 from algo_graph import findAllPaths
 from max import findAPath
+from max import findNbOfObstructions
 
 if __name__ == "__main__":
         
@@ -31,11 +32,11 @@ if __name__ == "__main__":
         instance_data = load_instance(path_to_testset)
 
         (graphDict, nbVertices) = Build_graph(instance_data)
-        # print(graphDict)
+        print('length of graph', len(graphDict))
 
         singlePath = findAPath(graphDict)
-        print("solution found: ", singlePath[0])
-        
+        print("solution found: ", singlePath)
+        print("nombre d'obstructions : ", findNbOfObstructions(singlePath))
         #allPaths = []
         #for vertice in graphDict: 
             #result = sorted(findAllPaths(graphDict, vertice))
