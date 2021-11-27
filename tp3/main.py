@@ -8,8 +8,21 @@ import time
 from check_sol import load_instance
 from build_graph import Build_graph
 from algo_graph import findAllPaths
-from max import findAPath
-from max import findNbOfObstructions
+from max_decroissant import findAPath_decroissant
+from max_croissant import findAPath_croissant
+from max_decroissant import findNbOfObstructions
+
+def validateSolution(graph, solution):
+    if not graph and not solution:
+        return True
+    if graph and not solution:
+        return False
+    if solution and not graph:
+        return False
+    for i in range(1, len(graph)):
+        if solution[i] not in graph[solution[i-1]]:
+            return False
+    return True
 
 if __name__ == "__main__":
         
@@ -34,9 +47,21 @@ if __name__ == "__main__":
         (graphDict, nbVertices) = Build_graph(instance_data)
         print('length of graph', len(graphDict))
 
-        singlePath = findAPath(graphDict)
+        singlePath = findAPath_decroissant(graphDict)
         print("solution found: ", singlePath)
         print("nombre d'obstructions : ", findNbOfObstructions(singlePath))
+
+        print('Validation : ')
+        print(validateSolution(graphDict, singlePath))
+
+        (graphDict, nbVertices) = Build_graph(instance_data)
+        print('length of graph', len(graphDict))
+        singlePath2 = findAPath_croissant(graphDict)
+        print("solution2 found: ", singlePath2)
+        print("nombre d'obstructions2 : ", findNbOfObstructions(singlePath2))
+        print('Validation : ')
+        print(validateSolution(graphDict, singlePath2))
+        
         #allPaths = []
         #for vertice in graphDict: 
             #result = sorted(findAllPaths(graphDict, vertice))
