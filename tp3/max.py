@@ -61,24 +61,33 @@ def findAPath(graph):
     totalNbOfStudents = len(graph)
     decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
     solution = ([], float('inf'))
+    counter = 0
     for startingNode in decreasingOrderedStudent:
+        counter += 1
+        if counter == 2:
+            break
+        
         node_pile = []
         tabouList = {} # TODO: faire en sorte que ce soit un dict de val : set (pas de val dupliquees)
         path = [] 
         
+        
         for student in decreasingOrderedStudent:
             tabouList[student] = []
         
-        # print('*' * 60)
-        # print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
+        print('*' * 60)
+        print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
         
         path.append(startingNode)
-        node_pile.append((startingNode, copy.copy(graph[startingNode])))        
+        node_pile.append((startingNode, copy.copy(graph[startingNode])))    
+        print('path: ', path)    
+        print('node_pile: ', node_pile)   
+        print(tabouList) 
         
-        counter = 0;
+        counter2 = 0;
         while(node_pile):
-            counter += 1
-            if counter == 1000: # extremement hardcodé
+            counter2 += 1
+            if counter2 == 1000: # extremement hardcodé
                 break
                 
             while node_pile and not node_pile[-1][1]:
@@ -107,24 +116,51 @@ def findAPath(graph):
             if not friendsAvailable:
                 ##
                 if len(path) == totalNbOfStudents:
-                    print('========= solution found ========= ')
-                    path.reverse()
+                    print('========= solution found ========= ') # TODO: il trouve plusieurs fois la mm solution... !!
+                    print('previous sol: ')
+                    print(solution)
+                    # path.reverse()
                     nbOfObstructions = findNbOfObstructions(path)
+                    print('this path : ')
+                    print((path, nbOfObstructions))
+                    
                     if nbOfObstructions < solution[1]:
-                        print('======== better solution found ======== ')
+                        print()
+                        print('======== +!+!+!+!+!+ better solution found +!+!+!+!+!+  ======== ')
+                        # trouver la difference avec la sol precedente
+                        # firstDiverginPosition = findFirstDiverginPosition(solution, path)
+                        
                         solution = (path, nbOfObstructions)
-                    #TODO: au lieu de break, check si une solution (avec le mm starting node) serait meilleure. (implique plus d'iteration)
-                    # comme par exemple l'exemple 'graph4' (jai noté une meilleure solution que l'algo ne trouve pas en ce moment)
-                    break 
+                        print(solution)
+                        print()
+                    
+                        ## TODO: cette ligne etait une indentation vers la gauche
+                        node_pile = []
+                        
+                        tabouList = {} # TODO: faire en sorte que ce soit un dict de val : set (pas de val dupliquees)
+                        path = [] 
+                        for student in decreasingOrderedStudent:
+                            tabouList[student] = []
+                        print('*' * 60)
+                        print('INITIALIZATION POST BEST SOLUTION, starting node : ', startingNode)
+                        path.append(startingNode)
+                        node_pile.append((startingNode, copy.copy(graph[startingNode])))    
+                        print('path: ', path)    
+                        print('node_pile: ', node_pile)   
+                        print(tabouList) 
+                        continue
+                        ## TODO: cette ligne etait une indentation vers la gauche
+                        # break 
                 
                 path.pop()
                 tabouList[path[-1]].append(currentStudent)
+                # print()
                 # print('BACKTRACK NEEDED, no available friends..and path is not quite ready yet, messed up node: ', currentStudent)
 
             else :
                 node_pile.append((currentStudent, friendsAvailable))
             
-                
+            # print()
             # print('===> path so far :  :', path)
             # print('===> node pile after filling with new friends :', node_pile)
             # print('===> tabou list : ', tabouList)
@@ -135,11 +171,15 @@ def findAPath(graph):
 
 
 def findNbOfObstructions(path):
-    if not path:
+    
+    path2 = copy.copy(path) # TODO: soit faire la logique en ordre decroissant, ou refaire tout le programme croissant
+    path2.reverse()
+    
+    if not path2:
         return -1
     nbOfObstructions = 0
-    highestStudent = path[0]
-    for student in path:
+    highestStudent = path2[0]
+    for student in path2:
         if student < highestStudent:
             nbOfObstructions += 1
         elif student > highestStudent:
@@ -147,8 +187,19 @@ def findNbOfObstructions(path):
     return nbOfObstructions
     
 
+def findFirstDiverginPosition(solution, path):
+    counter = 0
+    for node in solution[0]:
+        if node != path[counter]:
+            return counter
+        counter += 1        
+
+
+
 if __name__ == '__main__':
-    solution = findAPath(graph4)
-    nbOfObstructions = findNbOfObstructions(solution[0])
-    print("Last solution found : ", solution[0])
-    print("nb of obstructions: ", solution[1])
+    test = findFirstDiverginPosition(([15, 14, 13, 12, 10, 11, 4, 3, 8, 2, 7, 6, 5, 9, 1], 8), [15, 14, 13, 12, 9, 8])
+    print(test)
+    # solution = findAPath(graph4)
+    # nbOfObstructions = findNbOfObstructions(solution[0])
+    # print("Last solution found : ", solution[0])
+    # print("nb of obstructions: ", solution[1])
