@@ -69,37 +69,21 @@ def findAPath_croissant(graph):
     increasingOrderedStudent = sorted(list(graph.keys())) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
     solution = ([], float('inf'))
     
-    # c = 0
     for startingNode in increasingOrderedStudent:
-        # c += 1
-        # if c < 5:
-        #     continue
-        # if c > 5:
-        #     break
-        # if c == 6:
-        #     break
         node_pile = []
         path = [] 
         tabouList = {} # TODO: faire en sorte que ce soit un dict de val : set (pas de val dupliquees)
         for student in increasingOrderedStudent:
             tabouList[student] = []
-        
-        # print('*' * 60)
-        # print('ITERATION OF FBIG FOR LOOP, starting node : ', startingNode)
-        
         path.append(startingNode)
         candidateFriends = sorted(copy.copy(graph[startingNode]), reverse=True)
         
         node_pile.append((startingNode, candidateFriends))    
-        # print('path: ', path)    
-        # print('node_pile: ', node_pile)   
-        # print(tabouList) 
-        # print(node_pile)
         
         counter = 0;
         while(node_pile):
             counter += 1
-            if counter == 10000: # extremement hardcodé, ca fait une difference
+            if counter == 100000: # extremement hardcodé, ca fait une difference
                 ###
                 ## stats counter == 100'000
                 # 66_99       nbMin = 
@@ -120,17 +104,13 @@ def findAPath_croissant(graph):
                 node_pile.pop()
                 path.pop()
                 
-            #  SINON fuck up desfois a la fin lorsque tout est fini et il reste genre [(15: []), (14: []), (10: [])]    
             if not node_pile:
-                # print("***************  not node pile : ", node_pile)
                 break
             
             currentStudent = node_pile[-1][1].pop()
-            # print('-' * 50)
-            # print("currentStudent : ", currentStudent)
             path.append(currentStudent)
             
-            # CHECK LOWER BOUND
+            # TODO: valider si cest une bonne idee CHECK LOWER BOUND
             lowerBound = findLowerBound(graph, path)
             if lowerBound and lowerBound >= solution[1]:
                 # print("LOWER BOUND {} NOT EVEN BETTER THAN SOLUTION {}, SO MOVING ON".format(lowerBound, solution[1]))
@@ -149,11 +129,6 @@ def findAPath_croissant(graph):
             if not friendsAvailable:
                 ##
                 if len(path) == totalNbOfStudents:
-                    # print('SOLUTION FOUND______________')
-                    # print(path)
-                    # pathInAscendingOrder = copy.copy(path)
-                    # pathInAscendingOrder.reverse()
-                    # nbOfObstructions = findNbOfObstructions(pathInAscendingOrder)
                     nbOfObstructions = findNbOfObstructions(path)
                     
                     if nbOfObstructions < solution[1]:
@@ -165,19 +140,10 @@ def findAPath_croissant(graph):
                 
                 path.pop()
                 tabouList[path[-1]].append(currentStudent)
-                # print()
-                # print('BACKTRACK NEEDED, no available friends..and path is not quite ready yet, messed up node: ', currentStudent)
-
+                
             else :
                 node_pile.append((currentStudent, friendsAvailable))
-            
-            # print()
-            # print('===> path so far :  :', path)
-            # print('===> node pile after filling with new friends :', node_pile)
-            # print('===> tabou list : ', tabouList)
     
-    # print(solution) 
-    # print(solution)
     if (solution[0] == []):
         print("NO SOLUTION FOUND !! :(")
     return solution[0]
@@ -217,27 +183,13 @@ def findLowerBound(graph, path):
             curretnNbOfObstructions += 1
     return curretnNbOfObstructions
 
-# def findFirstDiverginPosition(solution, path):
-#     counter = 0
-#     for node in solution[0]:
-#         if node != path[counter]:
-#             return counter
-#         counter += 1        
-
-
 
 if __name__ == '__main__':
-    # node_pile = [(15, [1]), (14, []), (13, [2]), (12, []), (10, []), (11, []), (4, []), (3, []), (8, [])]
-    # solution = ([15, 14, 13, 12, 10, 11, 4, 3, 8], 8)
-    # test = findFirstDiverginPosition(solution, [15, 14, 13, 12, 10, 11, 4, 3, 1])
-    # print(test)
-    # node_pile= node_pile[:test]
-    # print(node_pile)
     
-    solution = findAPath2(graph4)
+    solution = findAPath_croissant(graph3)
     nbOfObstructions = findNbOfObstructions(solution)
     print("Last solution found : ", solution)
     print("nb of obstructions: ", nbOfObstructions)
     
     print('validation : ')
-    print(validateSolution(graph4, solution))
+    print(validateSolution(graph3, solution))

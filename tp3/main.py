@@ -51,15 +51,17 @@ if __name__ == "__main__":
         print("solution found: ", singlePath)
         print("nombre d'obstructions : ", findNbOfObstructions(singlePath))
 
-        print('Validation : ')
+        print('Validation (is path found valide?) : ')
         print(validateSolution(graphDict, singlePath))
 
+
+        # TODO: comprendre pk findAPath_croissant est vraiment meilleur avec 66_970, mais pas avec les autres instances..
         (graphDict, nbVertices) = Build_graph(instance_data)
         print('length of graph', len(graphDict))
         singlePath2 = findAPath_croissant(graphDict)
         print("solution2 found: ", singlePath2)
         print("nombre d'obstructions2 : ", findNbOfObstructions(singlePath2))
-        print('Validation : ')
+        print('Validation (is path found valide?) : ')
         print(validateSolution(graphDict, singlePath2))
         
         #allPaths = []
