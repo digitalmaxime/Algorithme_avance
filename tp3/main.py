@@ -7,8 +7,9 @@ import time
 
 from check_sol import load_instance
 from build_graph import Build_graph
-from algo_graph import findAllPaths
-from helper import print_graph
+from max import findAPath
+# from algo_graph import findAllPaths
+# from helper import print_graph
 
 if __name__ == "__main__":
         
