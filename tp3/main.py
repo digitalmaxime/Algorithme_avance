@@ -11,6 +11,19 @@ from max import findAPath
 # from algo_graph import findAllPaths
 # from helper import print_graph
 
+def validateSolution(graph, solution):
+    if not graph and not solution:
+        return True
+    if graph and not solution:
+        return False
+    if solution and not graph:
+        return False
+    for i in range(1, len(graph)):
+        if solution[i] not in graph[solution[i-1]]:
+            return False
+    return True
+
+
 if __name__ == "__main__":
         
     local_parser = argparse.ArgumentParser()
