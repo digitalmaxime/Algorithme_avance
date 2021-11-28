@@ -72,7 +72,7 @@ def findAPath_decroissant(graph):
         path.append(startingNode)
         node_pile.append((startingNode, copy.copy(graph[startingNode]))) 
         
-        counter = 0;
+        counter = 0
         while(node_pile):
             counter += 1
             if counter == 10000: # extremement hardcodé, ca fait une difference sur 66_970
@@ -146,7 +146,7 @@ def findNbOfObstructions(path):
 
 
 if __name__ == '__main__':
-    solution = findAPath_decroissant(graph3)
+    solution = findAPath_decroissant(graph4)
     nbOfObstructions = findNbOfObstructions(solution)
     print("Last solution found : ", solution)
     print("nb of obstructions: ", nbOfObstructions)

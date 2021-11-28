@@ -55,7 +55,6 @@ if __name__ == "__main__":
 
 
         # TODO: comprendre pk findAPath_croissant est vraiment meilleur avec 66_970, mais pas avec les autres instances..
-        (graphDict, nbVertices) = Build_graph(instance_data)
         print('length of graph', len(graphDict))
         singlePath2 = findAPath_decroissant(graphDict)
         print("solution2 found: ", singlePath2)
