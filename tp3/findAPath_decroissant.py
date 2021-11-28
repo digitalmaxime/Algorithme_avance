@@ -57,7 +57,7 @@ graph4 = {
 }
 
 
-def findAPath_decroissant(graph):
+def findAPath_decroissant(graph, should_print_solution):
     totalNbOfStudents = len(graph)
     decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
     solution = ([], float('inf'))
@@ -118,8 +118,14 @@ def findAPath_decroissant(graph):
                     nbOfObstructions = findNbOfObstructions(pathInAscendingOrder)
                     
                     if nbOfObstructions < solution[1]:
-                        print('======== +!+!+!+!+!+ better solution found +!+!+!+!+!+  ======== conflicts: ', nbOfObstructions)
+                        #print('======== +!+!+!+!+!+ better solution found +!+!+!+!+!+  ======== conflicts: ', nbOfObstructions)
                         solution = (copy.copy(path), nbOfObstructions)
+                        if should_print_solution:
+                            tempPath = copy.deepcopy(solution[0])
+                            tempPath.reverse()
+                            for student in tempPath:
+                                print(student, end=" ")
+                            print()
                 
                 path.pop()
                 tabouList[path[-1]].add(currentStudent)

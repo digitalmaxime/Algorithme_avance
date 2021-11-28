@@ -55,12 +55,12 @@ if __name__ == "__main__":
 
 
         # TODO: comprendre pk findAPath_croissant est vraiment meilleur avec 66_970, mais pas avec les autres instances..
-        print('length of graph', len(graphDict))
-        singlePath2 = findAPath_decroissant(graphDict)
-        print("solution2 found: ", singlePath2)
-        print("nombre d'obstructions2 : ", findNbOfObstructions(singlePath2))
-        print('Validation (is path found valide?) : ')
-        print(validateSolution(graphDict, singlePath2))
+        #print('length of graph', len(graphDict))
+        singlePath2 = findAPath_decroissant(graphDict, should_print_solution)
+        #print("solution2 found: ", singlePath2)
+        #print("nombre d'obstructions2 : ", findNbOfObstructions(singlePath2))
+        #print('Validation (is path found valide?) : ')
+        #print(validateSolution(graphDict, singlePath2))
         
         
         allPaths = []
@@ -70,9 +70,4 @@ if __name__ == "__main__":
                 #allPaths.append(path)
 
         #print(allPaths)
-
-        # show output if user asked for it
-        if (should_print_solution):
-            #TODO: print solution in good format
-            print()
 
