@@ -58,7 +58,6 @@ graph4 = {
 def findAPath(graph):
     totalNbOfStudents = len(graph)
     decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True)
-    print(decreasingOrderedStudent)
     solution = ([], float('inf'))
     
     for startingNode in decreasingOrderedStudent:
@@ -142,7 +141,7 @@ def findNbOfObstructions(path):
     
 
 if __name__ == '__main__':
-    solution = findAPath(graph4)
+    solution = findAPath(graph2)
     print(solution)
     nbOfObstructions = findNbOfObstructions(solution[0])
     print(solution[1])

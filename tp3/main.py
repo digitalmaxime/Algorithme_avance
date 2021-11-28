@@ -53,7 +53,6 @@ if __name__ == "__main__":
         # print('Validation (is path found valide?) : ')
         # print(validateSolution(graphDict, singlePath))
 
-
         # TODO: comprendre pk findAPath_croissant est vraiment meilleur avec 66_970, mais pas avec les autres instances..
         (graphDict, nbVertices) = Build_graph(instance_data)
         print('length of graph', len(graphDict))

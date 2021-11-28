@@ -146,7 +146,7 @@ def findNbOfObstructions(path):
 
 
 if __name__ == '__main__':
-    solution = findAPath_decroissant(graph3)
+    solution = findAPath_decroissant(graph4)
     nbOfObstructions = findNbOfObstructions(solution)
     print("Last solution found : ", solution)
     print("nb of obstructions: ", nbOfObstructions)
