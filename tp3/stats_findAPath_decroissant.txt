@@ -19,6 +19,18 @@
 # 558_837     nbMin = ERREUR, tempsPris = 53 sec
 # 558_31973   nbMin = , tempsPris = > 27min 
 # 558_63109   nbMin = , tempsPris =
+#
+## stats counter == 5000
+# 66_99       nbMin = ERREUR, tempsPris = pas bcp
+# 66_534      nbMin = 45, tempsPris = 2 sec
+# 66_970      nbMin = 32, tempsPris = 3 sec
+# 118_178     nbMin = ERREUR, tempsPris = 2 sec
+# 118_1570    nbMin = ERREUR, tempsPris = 8 sec
+# 118_2962    nbMin = 60, tempsPris = 18 sec
+# 558_837     nbMin = ERREUR, tempsPris = 25 sec
+# 558_31973   nbMin = 433, tempsPris = 14 min
+# 558_63109   nbMin = , tempsPris = 
+#
 ## stats counter == 1000
 # 66_99       nbMin = ERREUR, tempsPris = pas bcp
 # 66_534      nbMin = 48, tempsPris = pas bcp

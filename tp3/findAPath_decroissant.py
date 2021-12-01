@@ -75,7 +75,7 @@ def findAPath_decroissant(graph, should_print_solution):
         counter = 0
         while(node_pile):
             counter += 1
-            if counter == 10000: # extremement hardcodé, ca fait une difference sur 66_970
+            if counter == 5000: # extremement hardcodé, ca fait une difference sur 66_970
                 break
                 
             while node_pile and not node_pile[-1][1]:
