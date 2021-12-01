@@ -62,7 +62,11 @@ def findAPath_decroissant(graph):
     decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
     solution = ([], float('inf'))
     
+    # counterTest = 0
     for startingNode in decreasingOrderedStudent:
+        # counterTest += 1;
+        # if counterTest == 2:
+        #     break
         node_pile = []
         path = [] 
         tabouList = {}
@@ -103,13 +107,12 @@ def findAPath_decroissant(graph):
             path.append(currentStudent)
             
             # TODO: valider si cest une bonne idee CHECK LOWER BOUND
-            # lowerBound = findLowerBound(graph, path)
-            # if lowerBound and lowerBound >= solution[1]:
-            #     print("LOWER BOUND {} NOT EVEN BETTER THAN SOLUTION {}, SO MOVING ON and ignoring {}".format(lowerBound, solution[1], currentStudent))
-            #     print('tabou : ', tabouList)
-            #     tabouList[path[-1]].add(currentStudent)
-            #     path.pop()
-            #     continue
+            lowerBound = findLowerBound(graph, path)
+            if lowerBound and lowerBound >= solution[1]:
+                # print("LOWER BOUND {} NOT EVEN BETTER THAN SOLUTION {}, SO MOVING ON and ignoring {}".format(lowerBound, solution[1], currentStudent))
+                tabouList[path[-1]].add(currentStudent)
+                path.pop()
+                continue
             
             friendsAvailable = []
             hisFriends = graph[currentStudent]
@@ -153,6 +156,7 @@ def findNbOfObstructions(path):
             highestStudent = student
     return nbOfObstructions
 
+
 def findLowerBound(graph, path):
     if not path:
         return -1
@@ -161,22 +165,24 @@ def findLowerBound(graph, path):
     if differenceInLength == 0:
         return None
     
-    curretnNbOfObstructions = 0
-    
+    currentNbOfObstructions = 0
     remainingStudents = [x for x in graph.keys() if x not in path]
-    remainingStudents.sort()
-    highestStudent = remainingStudents[-1]
-    for student in path:
+    remainingStudents.sort(reverse=True)
+    highestStudent = remainingStudents[0]
+    for student in reversed(path):
         if student < highestStudent:
-            curretnNbOfObstructions += 1
+            currentNbOfObstructions += 1
         elif student > highestStudent:
             highestStudent = student
-    
-    return curretnNbOfObstructions
+    LB = currentNbOfObstructions
+    return LB
 
 
 if __name__ == '__main__':
-    solution = findAPath_decroissant(graph3)
+    # res = findLowerBound(graph4, [15, 14, 13, 12, 10, 11, 4, 3, 8])
+    # print("LB : ", res)
+    
+    solution = findAPath_decroissant(graph4)
     nbOfObstructions = findNbOfObstructions(solution)
     print("Last solution found : ", solution)
     print("nb of obstructions: ", nbOfObstructions)
