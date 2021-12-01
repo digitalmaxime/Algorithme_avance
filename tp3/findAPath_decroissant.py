@@ -126,6 +126,8 @@ def findAPath_decroissant(graph, should_print_solution):
                             for student in tempPath:
                                 print(student, end=" ")
                             print()
+                        else: 
+                            print(nbOfObstructions)
                 
                 path.pop()
                 tabouList[path[-1]].add(currentStudent)

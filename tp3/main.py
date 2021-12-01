@@ -61,13 +61,4 @@ if __name__ == "__main__":
         #print("nombre d'obstructions2 : ", findNbOfObstructions(singlePath2))
         #print('Validation (is path found valide?) : ')
         #print(validateSolution(graphDict, singlePath2))
-        
-        
-        allPaths = []
-        #for vertice in graphDict: 
-            #result = sorted(findAllPaths(graphDict, vertice))
-            #for path in result:
-                #allPaths.append(path)
-
-        #print(allPaths)
 
