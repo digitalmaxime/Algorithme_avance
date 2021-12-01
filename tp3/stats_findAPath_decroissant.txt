@@ -1,0 +1,31 @@
+## stats counter == 100'000
+# 66_99       nbMin = ERREUR, tempsPris = pas bcp
+# 66_534      nbMin = 40, tempsPris = 1min 6sec
+# 66_970      nbMin = 32, tempsPris = 2min 23sec
+# 118_178     nbMin = ERREUR, tempsPris = 1min 30
+# 118_1570    nbMin = 85, tempsPris = environ 5min
+# 118_2962    nbMin = 58, tempsPris = 9min 30
+# 558_837     nbMin = ERREUR, tempsPris = 19 min
+# 558_31973   nbMin = , tempsPris =
+# 558_63109   nbMin = , tempsPris =
+# 
+## stats counter == 10'000
+# 66_99       nbMin = ERREUR, tempsPris = pas bcp
+# 66_534      nbMin = 43, tempsPris = 3 sec
+# 66_970      nbMin = 32, tempsPris = 7 sec
+# 118_178     nbMin = ERREUR, tempsPris = 3sec
+# 118_1570    nbMin = 92, tempsPris = 18 sec
+# 118_2962    nbMin = 60, tempsPris = 36 sec
+# 558_837     nbMin = ERREUR, tempsPris = 53 sec
+# 558_31973   nbMin = , tempsPris = > 27min 
+# 558_63109   nbMin = , tempsPris =
+## stats counter == 1000
+# 66_99       nbMin = ERREUR, tempsPris = pas bcp
+# 66_534      nbMin = 48, tempsPris = pas bcp
+# 66_970      nbMin = 33, tempsPris = 1 sec
+# 118_178     nbMin = ERREUR, tempsPris = pas bcp
+# 118_1570    nbMin = ERREUR, tempsPris = pas bcp
+# 118_2962    nbMin = 60, tempsPris = 3 sec
+# 558_837     nbMin = ERREUR, tempsPris = 4 sec
+# 558_31973   nbMin = 434, tempsPris = 3min 30 pour finir mais trouve 434 en moins de 3min 
+# 558_63109   nbMin = 326, tempsPris = 5min pour finir mais trouve 326 en moins de 3min 
