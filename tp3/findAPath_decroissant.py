@@ -57,9 +57,9 @@ graph4 = {
 }
 
 
-def findAPath_decroissant(graph):
+def findAPath_decroissant(graph, should_print_solution):
     totalNbOfStudents = len(graph)
-    decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
+    decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True) 
     solution = ([], float('inf'))
     
     for startingNode in decreasingOrderedStudent:
@@ -72,23 +72,10 @@ def findAPath_decroissant(graph):
         path.append(startingNode)
         node_pile.append((startingNode, copy.copy(graph[startingNode]))) 
         
-        counter = 0;
+        counter = 0
         while(node_pile):
             counter += 1
-            if counter == 10000: # extremement hardcodé, ca fait une difference sur 66_970
-                ### TODO: faire qq stats pour le choix de counter
-                ## stats counter == 100'000
-                # 66_99       nbMin = ERREUR, tempsPris = pas bcp
-                # 66_534      nbMin = 40, tempsPris = 1min 6sec
-                # 66_970      nbMin = 32, tempsPris = 2min 23sec
-                # 118_178     nbMin = ERREUR, tempsPris = 1min 30
-                # 118_1570    nbMin = 85, tempsPris = environ 5min
-                # 118_2962    nbMin = 58, tempsPris = 9min 30
-                # 558_837     nbMin = ERREUR, tempsPris = 19 min
-                # 558_31973   nbMin = , tempsPris =
-                # 558_63109   nbMin = , tempsPris =
-                # 
-                ###
+            if counter == 5000: # extremement hardcodé, ca fait une difference sur 66_970
                 break
                 
             while node_pile and not node_pile[-1][1]:
@@ -118,8 +105,16 @@ def findAPath_decroissant(graph):
                     nbOfObstructions = findNbOfObstructions(pathInAscendingOrder)
                     
                     if nbOfObstructions < solution[1]:
-                        print('======== +!+!+!+!+!+ better solution found +!+!+!+!+!+  ======== conflicts: ', nbOfObstructions)
+                        #print('======== +!+!+!+!+!+ better solution found +!+!+!+!+!+  ======== conflicts: ', nbOfObstructions)
                         solution = (copy.copy(path), nbOfObstructions)
+                        if should_print_solution:
+                            tempPath = copy.deepcopy(solution[0])
+                            tempPath.reverse()
+                            for student in tempPath:
+                                print(student, end=" ")
+                            print()
+                        else: 
+                            print(nbOfObstructions)
                 
                 path.pop()
                 tabouList[path[-1]].add(currentStudent)
