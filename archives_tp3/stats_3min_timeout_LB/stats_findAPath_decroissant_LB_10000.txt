@@ -1,5 +1,7 @@
 Debut des algos avec counter = 10 000!
+
 test 66_99
+
 test 66_534
 51
 46
@@ -7,6 +9,7 @@ test 66_534
 43
 42
 41
+
 test 66_970
 38
 37
@@ -15,12 +18,15 @@ test 66_970
 34
 33
 32
+
 test 118_178
 ok, times up!\n
+
 test 118_1570
 96
 92
 ok, times up!\n
+
 test 118_2962
 64
 63
@@ -30,11 +36,15 @@ test 118_2962
 59
 58
 ok, times up!\n
+
 test 558_837
 ok, times up!\n
+
 test 558_31973
 ok, times up!\n
+
 test 558_63109
 328
 ok, times up!\n
+
 tout fini :)
