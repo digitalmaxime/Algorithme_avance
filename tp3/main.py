@@ -2,26 +2,10 @@
 
 import argparse
 import os
-import sys
-import time
 
 from check_sol import load_instance
 from build_graph import Build_graph
-from findAPath import findAPath
-from findAPath import findNbOfObstructions
-from findAPath_decroissant import findAPath_decroissant
-
-def validateSolution(graph, solution):
-    if not graph and not solution:
-        return True
-    if graph and not solution:
-        return False
-    if solution and not graph:
-        return False
-    for i in range(1, len(graph)):
-        if solution[i] not in graph[solution[i-1]]:
-            return False
-    return True
+from findAPath_decroissant_w_lowerBound import findAPath_decroissant_w_LB
 
 
 if __name__ == "__main__":
@@ -45,19 +29,6 @@ if __name__ == "__main__":
         instance_data = load_instance(path_to_testset)
 
         (graphDict, nbVertices) = Build_graph(instance_data)
-        # print(graphDict)
-
-        # singlePath = findAPath(graphDict)
-        # print("solution found: ", singlePath)
-        # print("nombre d'obstructions : ", findNbOfObstructions(singlePath))
-        # print('Validation (is path found valide?) : ')
-        # print(validateSolution(graphDict, singlePath))
-
-        # TODO: comprendre pk findAPath_croissant est vraiment meilleur avec 66_970, mais pas avec les autres instances..
-        #print('length of graph', len(graphDict))
-        singlePath2 = findAPath_decroissant(graphDict, should_print_solution)
-        #print("solution2 found: ", singlePath2)
-        #print("nombre d'obstructions2 : ", findNbOfObstructions(singlePath2))
-        #print('Validation (is path found valide?) : ')
-        #print(validateSolution(graphDict, singlePath2))
+        
+        singlePath = findAPath_decroissant_w_LB(graphDict,  should_print_solution)
 

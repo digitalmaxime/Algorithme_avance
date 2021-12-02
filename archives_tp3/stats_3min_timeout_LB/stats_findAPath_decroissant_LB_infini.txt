@@ -1,0 +1,45 @@
+Debut des algos avec counter = infini~!
+test 66_99
+ok, times up!\n
+test 66_534
+51
+46
+45
+44
+43
+42
+41
+ok, times up!\n
+test 66_970
+38
+37
+36
+35
+34
+ok, times up!\n
+test 118_178
+ok, times up!\n
+test 118_1570
+92
+ok, times up!\n
+test 118_2962
+64
+63
+62
+61
+60
+59
+58
+57
+ok, times up!\n
+test 558_837
+ok, times up!\n
+test 558_31973
+ok, times up!\n
+test 558_63109
+328
+326
+325
+324
+ok, times up!\n
+tout fini :)

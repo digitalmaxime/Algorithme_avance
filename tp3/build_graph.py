@@ -20,6 +20,3 @@ def Build_graph(instance_data):
         graph[couple[1]].append(couple[0])
       
     return (graph, numberOfVertices)
-
-if __name__ == "__main__":
-    print('*')

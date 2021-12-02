@@ -1,0 +1,33 @@
+Debut des algos avec counter = 5 000!
+test 66_99
+test 66_534
+51
+49
+47
+45
+test 66_970
+38
+37
+36
+35
+34
+33
+32
+test 118_178
+test 118_1570
+test 118_2962
+64
+63
+62
+61
+60
+59
+58
+test 558_837
+ok, times up!\n
+test 558_31973
+ok, times up!\n
+test 558_63109
+328
+ok, times up!\n
+tout fini :)
