@@ -3,7 +3,7 @@ import copy
 
 def findAPath_decroissant_w_LB(graph, should_print_solution):
     totalNbOfStudents = len(graph)
-    decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True) #TODO: Quand on va utiliser les vrais instances il faudra trier par ordre de grandeur (pas necessairement le numero de letudiant)
+    decreasingOrderedStudent = sorted(list(graph.keys()), reverse=True)
     solution = ([], float('inf'))
     
     for startingNode in decreasingOrderedStudent:
@@ -16,7 +16,7 @@ def findAPath_decroissant_w_LB(graph, should_print_solution):
         path.append(startingNode)
         node_pile.append((startingNode, copy.copy(graph[startingNode]))) 
         
-        counter = 0;
+        counter = 0
         while(node_pile):
             counter += 1
             if counter == 100000:
@@ -58,10 +58,10 @@ def findAPath_decroissant_w_LB(graph, should_print_solution):
                             tempPath = copy.deepcopy(solution[0])
                             tempPath.reverse()
                             for student in tempPath:
-                                print(student, end=" ")
-                            print()
+                                print(student, end=" ", flush=True)
+                            print(flush=True)
                         else:
-                            print(nbOfObstructions)
+                            print(nbOfObstructions, flush=True)
                 
                 path.pop()
                 tabouList[path[-1]].add(currentStudent)
